@@ -4,7 +4,6 @@ import App from './components/app/app';
 
 const OFFERS_COUNT: number = 312;
 
-
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
