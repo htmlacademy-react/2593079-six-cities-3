@@ -1,4 +1,4 @@
-import PlaceCard from '../../components/place-card';
+import PlaceCard from '../../components/place-card/place-card';
 
 type MainPageProps = {
   offersCount: number;
