@@ -76,7 +76,7 @@ export default function MainEmptyPage(): JSX.Element {
                 <p className="cities__status-description">We could not find any property available at the moment in Dusseldorf</p>
               </div>
             </section>
-            <div className="cities__right-section"></div>
+            <div className="cities__right-section"/>
           </div>
         </div>
       </main>

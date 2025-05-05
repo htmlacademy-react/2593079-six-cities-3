@@ -22,7 +22,7 @@ export default function OfferPage(): JSX.Element {
                     className="header__nav-link header__nav-link--profile"
                     href="#"
                   >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+                    <div className="header__avatar-wrapper user__avatar-wrapper"/>
                     <span className="header__user-name user__name">
                     Oliver.conner@gmail.com
                     </span>
