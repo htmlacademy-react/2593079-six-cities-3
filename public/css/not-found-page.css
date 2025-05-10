@@ -6,6 +6,7 @@
   min-height: 100vh;
   padding: 2rem;
   text-align: center;
+  font-family: rubik, arial, sans-serif;
 }
 
 .error-title {
@@ -14,11 +15,13 @@
   background: linear-gradient(45deg, #ff5a5f 20%, #ff8a87 70%);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  color: #4481c3;;
   margin: 1rem 0;
   padding: 0.5rem;
   line-height: 1.2;
   text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  font-style: italic;
+
 }
 
 .error-subtitle {
@@ -26,7 +29,7 @@
   font-size: clamp(1rem, 3vw, 1.5rem);
   font-weight: 400;
   margin-top: 1rem;
-  color: #666;
+  color: #4481c3;;
 }
 
 .error-link {
@@ -39,7 +42,7 @@
 }
 
 .error-link:hover {
-  color: #e04a50;
+  color: #4481c3;;
   border-bottom-style: solid;
 }
 
