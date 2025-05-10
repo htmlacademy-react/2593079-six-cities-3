@@ -6,6 +6,7 @@ import Layout from './components/layout/layout';
 import OfferPage from './pages/offer-page/offer-page';
 import LoginPage from './pages/login-page/login-page';
 import FavoritesPage from './pages/favorites-page/favorites-page';
+import PrivateRoute from './components/private-route/private-route';
 
 const OFFERS_COUNT: number = 312;
 
@@ -20,7 +21,13 @@ root.render(
         <Route index element={<App offersCount={OFFERS_COUNT}/>}/>
         <Route path="offer/:id" element={<OfferPage/>}/>
         <Route path="login" element={<LoginPage/>}/>
-        <Route path="favorites" element={<FavoritesPage isFavoritesEmpty={false}/>}/>
+        <Route path="favorites" element={
+          <PrivateRoute>
+            <FavoritesPage isFavoritesEmpty={false}/>
+          </PrivateRoute>
+        }
+        >
+        </Route>
 
       </Route>
     </Routes>
