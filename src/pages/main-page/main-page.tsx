@@ -1,11 +1,12 @@
 import PlaceCard from '../../components/place-card/place-card';
+import MainEmptyPage from '../main-empty-page/main-empty-page';
 
 type MainPageProps = {
   offersCount: number;
 }
 
 export default function MainPage({offersCount}: MainPageProps): JSX.Element {
-  return (
+  return (offersCount ?
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
@@ -77,7 +78,6 @@ export default function MainPage({offersCount}: MainPageProps): JSX.Element {
           </div>
         </div>
       </div>
-    </main>
-
+    </main> : <MainEmptyPage />
   );
 }
