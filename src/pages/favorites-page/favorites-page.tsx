@@ -1,5 +1,12 @@
-export default function FavoritesPage(): JSX.Element {
-  return (
+import Footer from '../../components/footer/footer';
+import FavoritesEmptyPage from '../favorites-empty-page/favorites-empty-page';
+
+type favoritesPageProps = {
+  isFavoritesEmpty: boolean;
+}
+
+export default function FavoritesPage({isFavoritesEmpty}: favoritesPageProps): JSX.Element {
+  return (isFavoritesEmpty ?
     <main className="page__main page__main--favorites">
       <div className="page__favorites-container container">
         <section className="favorites">
@@ -131,6 +138,8 @@ export default function FavoritesPage(): JSX.Element {
         </section>
       </div>
     </main>
+    : <><FavoritesEmptyPage/><Footer/></>
+
 
   );
 }

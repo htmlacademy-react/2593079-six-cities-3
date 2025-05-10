@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom';
 
-type layoutPropsType = {
+type layoutProps = {
   isLogged: boolean;
 }
 
-export default function Layout({isLogged}: layoutPropsType): JSX.Element {
+export default function Layout({isLogged}: layoutProps): JSX.Element {
   return (
     <div className="page">
       <header className="header">
