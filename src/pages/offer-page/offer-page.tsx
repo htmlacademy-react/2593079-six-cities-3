@@ -287,7 +287,7 @@ export default function OfferPage(): JSX.Element {
           <div className="near-places__list places__list">
             <article className="near-places__card place-card">
               <div className="near-places__image-wrapper place-card__image-wrapper">
-                <a href="#">
+                <a href="/offer/123">
                   <img
                     className="place-card__image"
                     src="img/room.jpg"
@@ -324,14 +324,14 @@ export default function OfferPage(): JSX.Element {
                   </div>
                 </div>
                 <h2 className="place-card__name">
-                  <a href="#">Wood and stone place</a>
+                  <a href="/offer/123">Wood and stone place</a>
                 </h2>
                 <p className="place-card__type">Room</p>
               </div>
             </article>
             <article className="near-places__card place-card">
               <div className="near-places__image-wrapper place-card__image-wrapper">
-                <a href="#">
+                <a href="/offer/123">
                   <img
                     className="place-card__image"
                     src="img/apartment-02.jpg"
@@ -368,7 +368,7 @@ export default function OfferPage(): JSX.Element {
                   </div>
                 </div>
                 <h2 className="place-card__name">
-                  <a href="#">Canal View Prinsengracht</a>
+                  <a href="/offer/123">Canal View Prinsengracht</a>
                 </h2>
                 <p className="place-card__type">Apartment</p>
               </div>
@@ -378,7 +378,7 @@ export default function OfferPage(): JSX.Element {
                 <span>Premium</span>
               </div>
               <div className="near-places__image-wrapper place-card__image-wrapper">
-                <a href="#">
+                <a href="/offer/123">
                   <img
                     className="place-card__image"
                     src="img/apartment-03.jpg"
@@ -415,7 +415,7 @@ export default function OfferPage(): JSX.Element {
                   </div>
                 </div>
                 <h2 className="place-card__name">
-                  <a href="#">Nice, cozy, warm big bed apartment</a>
+                  <a href="/offer/123">Nice, cozy, warm big bed apartment</a>
                 </h2>
                 <p className="place-card__type">Apartment</p>
               </div>
