@@ -7,6 +7,7 @@ import LoginPage from './pages/login-page/login-page';
 import FavoritesPage from './pages/favorites-page/favorites-page';
 import PrivateRoute from './components/private-route/private-route';
 import NotFoundPage from './pages/not-found-page/not-found-page';
+import { AuthorizationStatus, RoutePath } from './const';
 
 const OFFERS_COUNT: number = 312;
 
@@ -17,20 +18,21 @@ const root = ReactDOM.createRoot(
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Layout isLogged={false}/>}>
+      <Route path={RoutePath.Main} element={<Layout isLogged={false}/>}>
         <Route index element={<App offersCount={OFFERS_COUNT}/>}/>
-        <Route path="offer/:id" element={<OfferPage/>}/>
-        <Route path="login" element={<LoginPage/>}/>
-        <Route path="favorites" element={
-          <PrivateRoute>
-            <FavoritesPage isFavoritesEmpty={false}/>
+        <Route path={RoutePath.Offer} element={<OfferPage/>}/>
+        <Route path={RoutePath.Favorites} element={
+          <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <FavoritesPage isFavoritesEmpty/>
           </PrivateRoute>
         }
         >
         </Route>
-        <Route path="*" element={<NotFoundPage/>}/>
 
       </Route>
+      <Route path={RoutePath.Login} element={<LoginPage/>}/>
+      <Route path="*" element={<NotFoundPage/>}/>
+
     </Routes>
   </BrowserRouter>
 

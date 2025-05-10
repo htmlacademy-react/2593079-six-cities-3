@@ -1,5 +1,5 @@
 import PlaceCard from '../../components/place-card/place-card';
-import MainEmptyPage from '../main-empty-page/main-empty-page';
+import MainEmpty from '../../components/main-empty/main-empty';
 
 type MainPageProps = {
   offersCount: number;
@@ -78,6 +78,6 @@ export default function MainPage({offersCount}: MainPageProps): JSX.Element {
           </div>
         </div>
       </div>
-    </main> : <MainEmptyPage />
+    </main> : <MainEmpty />
   );
 }

@@ -1,5 +1,5 @@
 import Footer from '../../components/footer/footer';
-import FavoritesEmptyPage from '../favorites-empty-page/favorites-empty-page';
+import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 
 type favoritesPageProps = {
   isFavoritesEmpty: boolean;
@@ -138,7 +138,7 @@ export default function FavoritesPage({isFavoritesEmpty}: favoritesPageProps): J
         </section>
       </div>
     </main>
-    : <><FavoritesEmptyPage/><Footer/></>
+    : <><FavoritesEmpty/><Footer/></>
 
 
   );
