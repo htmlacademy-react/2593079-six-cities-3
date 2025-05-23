@@ -1,3 +1,28 @@
+export type Offer = {
+id: string;
+    title: string;
+    type: string;
+    price: number;
+    city: {
+      name: string;
+      location: {
+        latitude: number;
+        longitude: number;
+        zoom: number;
+      };
+    };
+    location: {
+      latitude: number;
+      longitude: number;
+      zoom: number;
+    };
+    isFavorite: boolean;
+    isPremium: boolean;
+    rating: number;
+    previewImage: string;
+}
+
+
 export const offersMock = [
   {
     'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',
@@ -20,7 +45,7 @@ export const offersMock = [
     'isFavorite': false,
     'isPremium': false,
     'rating': 4,
-    'previewImage': 'https://url-to-image/image.png'
+    'previewImage': 'img/apartment-02.jpg'
   },
   {
     'id': 'gr465711-c28d-4121-82cd-e0b756a27f00',
@@ -43,7 +68,7 @@ export const offersMock = [
     'isFavorite': false,
     'isPremium': false,
     'rating': 4,
-    'previewImage': 'https://url-to-image/image.png'
+    'previewImage': 'img/apartment-02.jpg'
   },
   {
     'id': 'jkk8a711-c28d-4121-82cd-e0b756a27f00',
@@ -66,7 +91,7 @@ export const offersMock = [
     'isFavorite': false,
     'isPremium': false,
     'rating': 5,
-    'previewImage': 'https://url-to-image/image.png'
+    'previewImage': 'img/apartment-02.jpg'
   },
   {
     'id': '7908a711-c28d-4121-82cd-e0b756a27f00',
@@ -89,7 +114,7 @@ export const offersMock = [
     'isFavorite': false,
     'isPremium': false,
     'rating': 3,
-    'previewImage': 'https://url-to-image/image.png'
+    'previewImage': 'img/apartment-02.jpg'
   },
   {
     'id': 'vfj9a711-c28d-4121-82cd-e0b756a27f00',
@@ -112,6 +137,6 @@ export const offersMock = [
     'isFavorite': false,
     'isPremium': false,
     'rating': 5,
-    'previewImage': 'https://url-to-image/image.png'
+    'previewImage': 'img/apartment-02.jpg'
   }
 ];

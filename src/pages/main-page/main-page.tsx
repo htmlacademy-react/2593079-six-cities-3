@@ -1,11 +1,13 @@
-import PlaceCard from '../../components/place-card/place-card';
 import MainEmpty from '../../components/main-empty/main-empty';
+import { Offer } from '../../mocks/offers';
+import OffersList from '../../components/offers-list/offers-list';
 
 type MainPageProps = {
   offersCount: number;
+  offers: Offer[];
 }
 
-export default function MainPage({offersCount}: MainPageProps): JSX.Element {
+export default function MainPage({offersCount, offers}: MainPageProps): JSX.Element {
   return (offersCount ?
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -65,13 +67,7 @@ export default function MainPage({offersCount}: MainPageProps): JSX.Element {
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
-              <PlaceCard />
-            </div>
+            <OffersList offers={offers}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"/>
