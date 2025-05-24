@@ -20,7 +20,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <BrowserRouter>
     <Routes>
-      <Route path={RoutePath.Main} element={<Layout isLogged={false}/>}>
+      <Route path={RoutePath.Main} element={<Layout isLogged/>}>
         <Route index element={<App offersCount={OFFERS_COUNT} offers={offersMock}/>}/>
         <Route path={RoutePath.Offer} element={<OfferPage/>}/>
         <Route path={RoutePath.Favorites} element={
