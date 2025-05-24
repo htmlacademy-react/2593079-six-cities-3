@@ -25,7 +25,7 @@ root.render(
         <Route path={RoutePath.Offer} element={<OfferPage/>}/>
         <Route path={RoutePath.Favorites} element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-            <FavoritesPage isFavoritesEmpty/>
+            <FavoritesPage offers={offersMock}/>
           </PrivateRoute>
         }
         >

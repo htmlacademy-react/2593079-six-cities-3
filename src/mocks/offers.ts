@@ -88,7 +88,7 @@ export const offersMock = [
       'longitude': 4.673877537499948,
       'zoom': 8
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 5,
     'previewImage': 'img/apartment-02.jpg'
@@ -111,7 +111,7 @@ export const offersMock = [
       'longitude': 4.673877537499948,
       'zoom': 8
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 3,
     'previewImage': 'img/apartment-02.jpg'
@@ -134,7 +134,7 @@ export const offersMock = [
       'longitude': 4.673877537499948,
       'zoom': 8
     },
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': false,
     'rating': 5,
     'previewImage': 'img/apartment-02.jpg'
