@@ -9,8 +9,7 @@ type MainPageScreenProps = {
 
 export default function MainPageScreen({offers, offersCount}: MainPageScreenProps): JSX.Element {
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [activeOffer, setActiveOffer] = useState('');
+  const [, setActiveOffer] = useState('');
 
   const handleActiveOfferChange = (activeOfferId: string) => setActiveOffer(activeOfferId);
 

@@ -4,8 +4,7 @@ import { ChangeEvent, useState } from 'react';
 export default function CommentForm(): JSX.Element {
 
   const [text, setText] = useState('');
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [rate, setRate] = useState(0);
+  const [, setRate] = useState(0);
 
   const handleRateChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
