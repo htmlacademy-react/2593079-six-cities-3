@@ -4,13 +4,27 @@ import { Offer } from '../../mocks/offers';
 type PlaceCardProps = {
   offer: Offer;
   isForFavPage?: boolean;
+  onChange?: (activeOfferId: string) => void;
 }
 
 
-export default function PlaceCard({offer, isForFavPage}: PlaceCardProps): JSX.Element {
+export default function PlaceCard({offer, isForFavPage, onChange}: PlaceCardProps): JSX.Element {
+
+  const handleCardHover = () => {
+    if(onChange) {
+      onChange(offer.id);
+    }
+  };
+
+  const handleCardLeave = () => {
+    if(onChange) {
+      onChange('');
+    }
+  };
+
   return (
 
-    <article className={`${isForFavPage ? 'favorites' : 'cities'}__card place-card`}>
+    <article className={`${isForFavPage ? 'favorites' : 'cities'}__card place-card`} onMouseEnter={handleCardHover} onMouseLeave={handleCardLeave}>
       {isForFavPage && offer.isPremium &&
       <div className="place-card__mark">
         <span>Premium</span>
