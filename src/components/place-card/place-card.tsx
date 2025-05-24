@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Offer } from '../../mocks/offers';
 
 type PlaceCardProps = {
@@ -15,9 +16,9 @@ export default function PlaceCard({offer, isForFavPage}: PlaceCardProps): JSX.El
         <span>Premium</span>
       </div>}
       <div className={`${isForFavPage ? 'favorites' : 'cities'}__image-wrapper place-card__image-wrapper`}>
-        <a href="#">
+        <Link to={`/offer/${offer.id}`} >
           <img className="place-card__image" src={offer.previewImage} width={isForFavPage ? '150' : '260'} height={isForFavPage ? '110' : '200'} alt="Place image"/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -39,7 +40,7 @@ export default function PlaceCard({offer, isForFavPage}: PlaceCardProps): JSX.El
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{offer.title}</a>
+          <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
         </h2>
         <p className="place-card__type">{offer.type}</p>
       </div>
