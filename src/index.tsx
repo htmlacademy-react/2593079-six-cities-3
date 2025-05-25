@@ -10,8 +10,6 @@ import NotFoundPage from './pages/not-found-page/not-found-page';
 import { AuthorizationStatus, RoutePath } from './const';
 import { offersMock } from './mocks/offers';
 
-const OFFERS_COUNT: number = 312;
-
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -21,7 +19,7 @@ root.render(
   <BrowserRouter>
     <Routes>
       <Route path={RoutePath.Main} element={<Layout isLogged/>}>
-        <Route index element={<App offersCount={OFFERS_COUNT} offers={offersMock}/>}/>
+        <Route index element={<App offers={offersMock}/>}/>
         <Route path={RoutePath.Offer} element={<OfferPage/>}/>
         <Route path={RoutePath.Favorites} element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>

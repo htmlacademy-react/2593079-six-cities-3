@@ -1,17 +1,22 @@
 import { useState } from 'react';
 import OffersList from '../offers-list/offers-list';
 import { Offer } from '../../mocks/offers';
+import { Cities } from '../../const';
+import { NavLink } from 'react-router-dom';
+import { filterByCity } from '../../utils';
 
 type MainPageScreenProps = {
   offers: Offer[];
-  offersCount: number;
 }
 
-export default function MainPageScreen({offers, offersCount}: MainPageScreenProps): JSX.Element {
-
+export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Element {
+  const [activeCityFilter, setCityFilter] = useState('Paris');
   const [, setActiveOffer] = useState('');
 
+  const handleChangeFilter = (newFilter: string) => setCityFilter(newFilter);
   const handleActiveOfferChange = (activeOfferId: string) => setActiveOffer(activeOfferId);
+
+  const filteredOffers = filterByCity(offers, activeCityFilter);
 
   return (
     <main className="page__main page__main--index">
@@ -19,36 +24,13 @@ export default function MainPageScreen({offers, offersCount}: MainPageScreenProp
       <div className="tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
+            {Cities.map((city) => (
+              <li key={`${city}-1`} className="locations__item">
+                <NavLink onClick={() => handleChangeFilter(city)} className={`${city === activeCityFilter ? 'tabs__item--active' : ''} locations__item-link tabs__item`} to="/">
+                  <span>{city}</span>
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </section>
       </div>
@@ -56,7 +38,7 @@ export default function MainPageScreen({offers, offersCount}: MainPageScreenProp
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offersCount} places to stay in Amsterdam</b>
+            <b className="places__found">{filteredOffers.length} places to stay in {activeCityFilter}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by   </span>
               <span className="places__sorting-type" tabIndex={0}>
@@ -72,10 +54,10 @@ export default function MainPageScreen({offers, offersCount}: MainPageScreenProp
                 <li className="places__option" tabIndex={0}>Top rated first</li>
               </ul>
             </form>
-            <OffersList offers={offers} onChange={handleActiveOfferChange}/>
+            <OffersList offers={filteredOffers} onChange={handleActiveOfferChange}/>
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"/>
+            {filteredOffers.length > 0 && <section className="cities__map map"/>}
           </div>
         </div>
       </div>

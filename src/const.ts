@@ -11,4 +11,6 @@ enum RoutePath {
   Main = '/',
 }
 
-export {AuthorizationStatus, RoutePath};
+const Cities: string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export {AuthorizationStatus, RoutePath, Cities};
