@@ -32,14 +32,14 @@ export const offersMock = [
     'city': {
       'name': 'Amsterdam',
       'location': {
-        'latitude': 52.35514938496378,
-        'longitude': 4.673877537499948,
+        'latitude': 52.377956,
+        'longitude': 4.897070,
         'zoom': 8
       }
     },
     'location': {
-      'latitude': 52.35514938496378,
-      'longitude': 4.673877537499948,
+      'latitude': 52.3909553943508,
+      'longitude': 4.85309666406198,
       'zoom': 8
     },
     'isFavorite': false,
@@ -55,14 +55,14 @@ export const offersMock = [
     'city': {
       'name': 'Amsterdam',
       'location': {
-        'latitude': 52.35514938496378,
-        'longitude': 4.673877537499948,
+        'latitude': 52.377956,
+        'longitude': 4.897070,
         'zoom': 8
       }
     },
     'location': {
-      'latitude': 54.35514938496378,
-      'longitude': 4.673877537499948,
+      'latitude': 52.3609553943508,
+      'longitude': 4.85309666406198,
       'zoom': 8
     },
     'isFavorite': false,
@@ -78,14 +78,14 @@ export const offersMock = [
     'city': {
       'name': 'Amsterdam',
       'location': {
-        'latitude': 52.35514938496378,
-        'longitude': 4.673877537499948,
+        'latitude': 52.377956,
+        'longitude': 4.897070,
         'zoom': 8
       }
     },
     'location': {
-      'latitude': 54.35514938496378,
-      'longitude': 4.673877537499948,
+      'latitude': 52.3909553943508,
+      'longitude': 4.929309666406198,
       'zoom': 8
     },
     'isFavorite': true,
@@ -101,14 +101,14 @@ export const offersMock = [
     'city': {
       'name': 'Amsterdam',
       'location': {
-        'latitude': 52.35514938496378,
-        'longitude': 4.673877537499948,
+        'latitude': 52.377956,
+        'longitude': 4.897070,
         'zoom': 8
       }
     },
     'location': {
-      'latitude': 54.35514938496378,
-      'longitude': 4.673877537499948,
+      'latitude': 52.3809553943508,
+      'longitude': 4.939309666406198,
       'zoom': 8
     },
     'isFavorite': true,
@@ -124,14 +124,14 @@ export const offersMock = [
     'city': {
       'name': 'Paris',
       'location': {
-        'latitude': 52.35514938496378,
-        'longitude': 4.673877537499948,
+        'latitude': 48.856388888889,
+        'longitude': 2.3438888888889,
         'zoom': 8
       }
     },
     'location': {
       'latitude': 54.35514938496378,
-      'longitude': 4.673877537499948,
+      'longitude': 4.897070,
       'zoom': 8
     },
     'isFavorite': true,

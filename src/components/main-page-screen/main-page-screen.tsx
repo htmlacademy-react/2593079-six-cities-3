@@ -4,19 +4,21 @@ import { Offer } from '../../mocks/offers';
 import { Cities } from '../../const';
 import { NavLink } from 'react-router-dom';
 import { filterByCity } from '../../utils';
+import Map from '../map/map';
 
 type MainPageScreenProps = {
   offers: Offer[];
 }
 
 export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Element {
-  const [activeCityFilter, setCityFilter] = useState('Paris');
-  const [, setActiveOffer] = useState('');
+  const [activeCityFilter, setCityFilter] = useState('Amsterdam');
+  const [activeOffer, setActiveOffer] = useState<string | null>(null);
 
   const handleChangeFilter = (newFilter: string) => setCityFilter(newFilter);
   const handleActiveOfferChange = (activeOfferId: string) => setActiveOffer(activeOfferId);
 
   const filteredOffers = filterByCity(offers, activeCityFilter);
+  const cityData = filteredOffers[0]?.city;
 
   return (
     <main className="page__main page__main--index">
@@ -57,7 +59,10 @@ export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Eleme
             <OffersList offers={filteredOffers} onChange={handleActiveOfferChange}/>
           </section>
           <div className="cities__right-section">
-            {filteredOffers.length > 0 && <section className="cities__map map"/>}
+            {filteredOffers.length > 0 &&
+            <section className="cities__map map">
+              <Map points={filteredOffers} activePoint={activeOffer} city={cityData}></Map>
+            </section>}
           </div>
         </div>
       </div>
