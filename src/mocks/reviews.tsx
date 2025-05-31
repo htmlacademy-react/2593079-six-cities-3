@@ -18,7 +18,7 @@ export const reviews = [
     'date': '2023-07-15T10:30:45.123Z',
     'user': {
       'name': 'Emma Watson',
-      'avatarUrl': 'https://example.com/avatars/emma.jpg',
+      'avatarUrl': 'https://cdn.fishki.net/upload/post/2019/12/06/3161519/65a7e19b7a112e12c403055913cacd61.jpg',
       'isPro': true
     },
     'comment': 'Great location and friendly staff! The room was clean and comfortable. Would definitely stay here again.',
@@ -29,7 +29,7 @@ export const reviews = [
     'date': '2022-11-22T18:45:30.456Z',
     'user': {
       'name': 'John Smith',
-      'avatarUrl': 'https://example.com/avatars/john.jpg',
+      'avatarUrl': 'https://masterpiecer-images.s3.yandex.net/2f480de9651211eebb15aaafe6635749:upscaled',
       'isPro': false
     },
     'comment': 'Nice place, but the Wi-Fi was a bit slow. The view from the balcony was amazing though!',
@@ -40,7 +40,7 @@ export const reviews = [
     'date': '2024-01-05T09:15:20.789Z',
     'user': {
       'name': 'Sophia Garcia',
-      'avatarUrl': 'https://example.com/avatars/sophia.jpg',
+      'avatarUrl': 'https://cdn.fishki.net/upload/post/2019/12/06/3161519/65a7e19b7a112e12c403055913cacd61.jpg',
       'isPro': true
     },
     'comment': 'Absolutely loved the interior design! The breakfast was delicious too. Highly recommend this place.',
@@ -51,7 +51,7 @@ export const reviews = [
     'date': '2021-09-30T16:20:10.321Z',
     'user': {
       'name': 'Michael Brown',
-      'avatarUrl': 'https://example.com/avatars/michael.jpg',
+      'avatarUrl': 'https://masterpiecer-images.s3.yandex.net/daeb36676c5d11ee998e1e5d9776cfa6:upscaled',
       'isPro': false
     },
     'comment': 'The room was smaller than expected, but it had everything I needed. Good value for the price.',

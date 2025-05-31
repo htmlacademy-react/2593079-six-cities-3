@@ -20,7 +20,7 @@ root.render(
     <Routes>
       <Route path={RoutePath.Main} element={<Layout isLogged/>}>
         <Route index element={<App offers={offersMock}/>}/>
-        <Route path={RoutePath.Offer} element={<OfferPage/>}/>
+        <Route path={RoutePath.Offer} element={<OfferPage authorizationStatus={AuthorizationStatus.Auth}/>}/>
         <Route path={RoutePath.Favorites} element={
           <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
             <FavoritesPage offers={offersMock}/>
