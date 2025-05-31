@@ -3,15 +3,23 @@ import { ChangeEvent, useState } from 'react';
 
 export default function CommentForm(): JSX.Element {
 
-  const [text, setText] = useState('');
-  const [, setRate] = useState(0);
+  const [commentState, setState] = useState({
+    text: '',
+    rating: 3
+  });
 
   const handleRateChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    setRate(Number(e.target.value));
+    setState({
+      ...commentState,
+      rating: Number(e.target.value),
+    });
   };
 
-  const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => setText(e.target.value);
+  const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => setState({
+    ...commentState,
+    text: e.target.value
+  });
 
   return (
     <form className="reviews__form form" action="#" method="post">
@@ -110,7 +118,7 @@ export default function CommentForm(): JSX.Element {
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={text}
+        defaultValue={commentState.text}
         onChange={handleTextChange}
       />
       <div className="reviews__button-wrapper">
