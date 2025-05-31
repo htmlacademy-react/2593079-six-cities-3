@@ -1,7 +1,10 @@
 import CommentForm from '../../components/comment-form/comment-form';
+import Map from '../../components/map/map';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import { AuthorizationStatus } from '../../const';
+import { offersMock } from '../../mocks/offers';
 import { reviews } from '../../mocks/reviews';
+
 
 type OfferPageProps = {
   authorizationStatus: AuthorizationStatus;
@@ -144,7 +147,10 @@ export default function OfferPage({authorizationStatus}: OfferPageProps): JSX.El
             </section>
           </div>
         </div>
-        <section className="offer__map map" />
+        <section className="container map">
+          <Map points={offersMock.slice(0, 3)} city={offersMock[0].city} />
+        </section>
+
       </section>
       <div className="container">
         <section className="near-places places">

@@ -16,7 +16,7 @@ export type City = {
 
 type mapProps = {
   points: Offer[];
-  activePoint: string | null;
+  activePoint?: string | null;
   city: City;
 }
 
@@ -59,5 +59,5 @@ export default function Map({points, activePoint, city}: mapProps): JSX.Element 
 
   }, [points, map, activePoint]);
 
-  return <div style={{height: '500px'}} ref={mapRef}></div>;
+  return <div style={{height: '579px'}} ref={mapRef}></div>;
 }
