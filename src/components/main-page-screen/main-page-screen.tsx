@@ -11,14 +11,14 @@ type MainPageScreenProps = {
 }
 
 export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Element {
-  const [activeCityFilter, setCityFilter] = useState('Amsterdam');
+  const [activeCity, setCityFilter] = useState('Amsterdam');
   const [activeOffer, setActiveOffer] = useState<string | null>(null);
 
   const handleChangeFilter = (newFilter: string) => setCityFilter(newFilter);
   const handleActiveOfferChange = (activeOfferId: string) => setActiveOffer(activeOfferId);
 
-  const filteredOffers = filterByCity(offers, activeCityFilter);
-  const cityData = filteredOffers[0]?.city;
+  const filteredOffers = filterByCity(offers, activeCity);
+  const activeCityData = filteredOffers[0]?.city;
 
   return (
     <main className="page__main page__main--index">
@@ -28,7 +28,7 @@ export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Eleme
           <ul className="locations__list tabs__list">
             {Cities.map((city) => (
               <li key={`${city}-1`} className="locations__item">
-                <NavLink onClick={() => handleChangeFilter(city)} className={`${city === activeCityFilter ? 'tabs__item--active' : ''} locations__item-link tabs__item`} to="/">
+                <NavLink onClick={() => handleChangeFilter(city)} className={`${city === activeCity ? 'tabs__item--active' : ''} locations__item-link tabs__item`} to="/">
                   <span>{city}</span>
                 </NavLink>
               </li>
@@ -40,7 +40,7 @@ export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Eleme
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{filteredOffers.length} places to stay in {activeCityFilter}</b>
+            <b className="places__found">{filteredOffers.length} places to stay in {activeCity}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by   </span>
               <span className="places__sorting-type" tabIndex={0}>
@@ -61,7 +61,7 @@ export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Eleme
           <div className="cities__right-section">
             {filteredOffers.length > 0 &&
             <section className="cities__map map">
-              <Map points={filteredOffers} activePoint={activeOffer} city={cityData}></Map>
+              <Map points={filteredOffers} activePoint={activeOffer} city={activeCityData}></Map>
             </section>}
           </div>
         </div>
