@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { changeCity, setOffers } from './action';
-import { Offer } from '../mocks/offers';
+import { Offer, offersMock } from '../mocks/offers';
 
 interface State {
     activeCity: string;
@@ -9,7 +9,7 @@ interface State {
 
 const initialState: State = {
   activeCity: 'Paris',
-  offers: null
+  offers: offersMock
 };
 
 const reducer = createReducer(initialState, (builder) => {

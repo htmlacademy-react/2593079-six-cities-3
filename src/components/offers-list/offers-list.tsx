@@ -3,7 +3,7 @@ import NearOfferCard from '../near-offer-card/near-offer-card';
 import PlaceCard from '../place-card/place-card';
 
 type OffersListProps = {
-  offers: Offer[];
+  offers: Offer[] | undefined;
   isForFavPage?: boolean;
   isForOfferPage?: boolean;
   onChange?: (activeOfferId: string) => void;
@@ -22,7 +22,7 @@ export default function OffersList({offers, isForFavPage, isForOfferPage, onChan
 
   return (
     <div className={getListClassName(isForFavPage, isForOfferPage)}>
-      {offers.map((currOffer) => {
+      {offers?.map((currOffer) => {
         const key = currOffer.id;
         if(isForOfferPage) {
           return <NearOfferCard offer={currOffer} key={key}/>;

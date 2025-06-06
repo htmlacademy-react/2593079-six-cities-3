@@ -15,9 +15,9 @@ export type City = {
 };
 
 type mapProps = {
-  points: Offer[];
+  points: Offer[] | undefined;
   activePoint?: string | null;
-  city: City;
+  city: City | null;
 }
 
 const defaultCustomIcon = new Icon({
@@ -41,7 +41,7 @@ export default function Map({points, activePoint, city}: mapProps): JSX.Element 
 
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      points.forEach((point) => {
+      points?.forEach((point) => {
         const marker = new Marker({
           lat: point.location.latitude,
           lng: point.location.longitude
