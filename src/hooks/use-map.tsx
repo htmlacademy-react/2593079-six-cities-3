@@ -3,7 +3,7 @@ import { Map, TileLayer } from 'leaflet';
 import { City } from '../components/map/map';
 
 
-export default function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map | null {
+export default function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City | null): Map | null {
 
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
@@ -37,7 +37,9 @@ export default function useMap(mapRef: MutableRefObject<HTMLElement | null>, cit
     }
 
     if(isRenderedRef.current && map) {
-      map?.setView([city.location.latitude, city.location.longitude], 11);
+      if(city) {
+        map?.setView([city.location.latitude, city.location.longitude], 11);
+      }
     }
   }, [mapRef, city, map]);
 

@@ -130,8 +130,8 @@ export const offersMock = [
       }
     },
     'location': {
-      'latitude': 54.35514938496378,
-      'longitude': 4.897070,
+      'latitude': 48.8584,
+      'longitude': 2.2945,
       'zoom': 8
     },
     'isFavorite': true,
