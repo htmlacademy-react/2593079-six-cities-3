@@ -777,7 +777,6 @@ img {
   top: calc(100% + 1px);
   left: 52px;
   z-index: 1;
-  display: none;
 }
 .places__options--opened {
   display: block;
