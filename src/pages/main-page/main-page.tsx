@@ -5,7 +5,8 @@ import { useAppSelector } from '../../hooks/store';
 
 export default function MainPage(): JSX.Element {
   const offers = useAppSelector((state) => state.offers);
-  return (offers?.length ?
-    <MainPageScreen offers={offers}/> : <MainEmpty/>
+  const isOffersLoaded = useAppSelector((state) => state.isOffersLoaded);
+  return (!offers.length && isOffersLoaded ?
+    <MainEmpty/> : <MainPageScreen offers={offers}/>
   );
 }

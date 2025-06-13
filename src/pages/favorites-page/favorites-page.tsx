@@ -2,13 +2,11 @@
 // import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 // import OffersList from '../../components/offers-list/offers-list';
 import OffersList from '../../components/offers-list/offers-list';
-import { Offer } from '../../mocks/offers';
+import { useAppSelector } from '../../hooks/store';
 
-type favoritesPageProps = {
-  offers: Offer[];
-}
 
-export default function FavoritesPage({offers}: favoritesPageProps): JSX.Element {
+export default function FavoritesPage(): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
   const favoritedOffers = offers.filter((offer) => offer.isFavorite);
   const uniquePlaces = favoritedOffers.reduce<string[]>((uniqueCities, offer) => {
     if(uniqueCities.indexOf(offer.city.name) === -1) {
