@@ -5,11 +5,11 @@ import { filterByCity } from '../../utils';
 import Map from '../map/map';
 import { useAppSelector } from '../../hooks/store';
 import CitiesList from '../cities-list/cities-list';
-import { Offer } from '../../mocks/offers';
 import OptionsList from '../options-list/options-list';
+import { Offer } from '../../types';
 
 type MainPageScreenProps = {
-  offers: Offer[] | undefined;
+  offers: Offer[];
 }
 
 export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Element {
@@ -23,7 +23,7 @@ export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Eleme
   if(currentOption !== OptionsTypes.POP) {
     filteredOffers = SortFunctions[currentOption](filteredOffers);
   }
-  const activeCityData = filteredOffers?.length ? filteredOffers[0].city : null;
+  const activeCityData = filteredOffers.length ? filteredOffers[0].city : null;
 
   return (
     <main className="page__main page__main--index">

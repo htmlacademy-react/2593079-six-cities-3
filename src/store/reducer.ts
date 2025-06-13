@@ -1,15 +1,15 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { changeCity, setOffers } from './action';
-import { Offer, offersMock } from '../mocks/offers';
+import { Offer } from '../types';
 
 interface State {
     activeCity: string;
-    offers: Offer[] | null;
+    offers: Offer[];
 }
 
 const initialState: State = {
   activeCity: 'Paris',
-  offers: offersMock
+  offers: []
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -20,6 +20,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(changeCity, (state, action) => {
       state.activeCity = action.payload;
     });
+
 });
 
 export {reducer};

@@ -1,9 +1,9 @@
-import { Offer } from '../../mocks/offers';
+import { Offer } from '../../types';
 import NearOfferCard from '../near-offer-card/near-offer-card';
 import PlaceCard from '../place-card/place-card';
 
 type OffersListProps = {
-  offers: Offer[] | undefined;
+  offers: Offer[];
   isForFavPage?: boolean;
   isForOfferPage?: boolean;
   onChange?: (activeOfferId: string) => void;
