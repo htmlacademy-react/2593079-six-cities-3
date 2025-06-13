@@ -3,5 +3,6 @@ import { Offer } from '../types';
 
 const changeCity = createAction<string>('changeCity');
 const setOffers = createAction<Offer[]>('setOffers');
+const setOffersIsLoaded = createAction<boolean>('setOffersIsLoaded');
 
-export {changeCity, setOffers};
+export {changeCity, setOffers, setOffersIsLoaded};
