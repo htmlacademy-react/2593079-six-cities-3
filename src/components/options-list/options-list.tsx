@@ -1,4 +1,4 @@
-import { useEffect, useState, MouseEvent } from 'react';
+import { useEffect, useState, MouseEvent, useRef } from 'react';
 import { OptionsTypes } from '../../const';
 
 type OptionsListProps = {
@@ -10,6 +10,11 @@ type OptionsListProps = {
 export default function OptionsList({currentOption, changeOption}: OptionsListProps): JSX.Element {
 
   const [isOptionsShown, setOptionsShown] = useState<boolean>(false);
+  const optionsElements = useRef<HTMLLIElement[]>([]);
+
+  const setRef = (el: HTMLLIElement, index: number) => {
+    optionsElements.current[index] = el;
+  };
 
 
   const onClick = (e: MouseEvent<HTMLElement>) => {
@@ -21,13 +26,13 @@ export default function OptionsList({currentOption, changeOption}: OptionsListPr
 
   useEffect(() => {
     const onDocumentClick = (e: Event) => {
-      const target = e.target as HTMLElement;
+      const target = e.target as HTMLLIElement;
       if(!target.closest('.places__sorting')) {
         setOptionsShown(false);
       }
     };
 
-    document.querySelectorAll('li.places__option').forEach((el) => {
+    optionsElements.current.forEach((el: HTMLLIElement) => {
       el.classList.remove('places__option--active');
     });
     document.addEventListener('click', onDocumentClick);
@@ -55,10 +60,16 @@ export default function OptionsList({currentOption, changeOption}: OptionsListPr
         </svg>
       </span>
       <ul className="places__options places__options--custom" style={{display: isOptionsShown ? 'block' : 'none'}}>
-        <li className="places__option" onClick={onClick} data-option={OptionsTypes.POP} tabIndex={0}>Popular</li>
-        <li className="places__option" onClick={onClick} data-option={OptionsTypes.ASC} tabIndex={0}>Price: low to high</li>
-        <li className="places__option" onClick={onClick} data-option={OptionsTypes.DSC} tabIndex={0}>Price: high to low</li>
-        <li className="places__option" onClick={onClick} data-option={OptionsTypes.TOP} tabIndex={0}>Top rated first</li>
+        <li className="places__option" onClick={onClick} ref={(el) => setRef(el as HTMLLIElement, 0)}
+          data-option={OptionsTypes.POP} tabIndex={0}
+        >Popular
+        </li>
+        <li className="places__option" onClick={onClick} ref={(el) => setRef(el as HTMLLIElement, 1)} data-option={OptionsTypes.ASC} tabIndex={0}>Price: low to high
+        </li>
+        <li className="places__option" onClick={onClick} ref={(el) => setRef(el as HTMLLIElement, 2)} data-option={OptionsTypes.DSC} tabIndex={0}>Price: high to low
+        </li>
+        <li className="places__option" onClick={onClick} ref={(el) => setRef(el as HTMLLIElement, 3)} data-option={OptionsTypes.TOP} tabIndex={0}>Top rated first
+        </li>
       </ul>
     </form>
   );
