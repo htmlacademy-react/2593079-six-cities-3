@@ -59,7 +59,8 @@ export default function OptionsList({currentOption, changeOption}: OptionsListPr
           <use xlinkHref="#icon-arrow-select"/>
         </svg>
       </span>
-      <ul className="places__options places__options--custom" style={{display: isOptionsShown ? 'block' : 'none'}}>
+      {isOptionsShown &&
+      <ul className="places__options places__options--custom" style={{display: 'block'}}>
         <li className="places__option" onClick={onClick} ref={(el) => setRef(el as HTMLLIElement, 0)}
           data-option={OptionsTypes.POP} tabIndex={0}
         >Popular
@@ -70,7 +71,8 @@ export default function OptionsList({currentOption, changeOption}: OptionsListPr
         </li>
         <li className="places__option" onClick={onClick} ref={(el) => setRef(el as HTMLLIElement, 3)} data-option={OptionsTypes.TOP} tabIndex={0}>Top rated first
         </li>
-      </ul>
+      </ul>}
+
     </form>
   );
 }
