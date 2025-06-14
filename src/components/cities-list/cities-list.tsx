@@ -9,7 +9,6 @@ type CitiesListProps = {
 
 export default function CitiesList({cities, activeCity}: CitiesListProps): JSX.Element {
   const dispatch = useAppDispatch();
-
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">

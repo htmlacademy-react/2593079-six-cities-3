@@ -17,7 +17,7 @@ export default function useMap(mapRef: MutableRefObject<HTMLElement | null>, cit
           lat: city.location.latitude,
           lng: city.location.longitude
         },
-        zoom: 11
+        zoom: 12
       });
 
       const layer = new TileLayer(
@@ -38,7 +38,7 @@ export default function useMap(mapRef: MutableRefObject<HTMLElement | null>, cit
 
     if(isRenderedRef.current && map) {
       if(city) {
-        map?.setView([city.location.latitude, city.location.longitude], 11);
+        map?.setView([city.location.latitude, city.location.longitude], 12);
       }
     }
   }, [mapRef, city, map]);
