@@ -5,25 +5,30 @@ import { filterByCity } from '../../utils';
 import Map from '../map/map';
 import { useAppSelector } from '../../hooks/store';
 import CitiesList from '../cities-list/cities-list';
-import { Offer } from '../../mocks/offers';
 import OptionsList from '../options-list/options-list';
+import { Offer } from '../../types';
+import Spinner from '../spinner/spinner';
 
 type MainPageScreenProps = {
-  offers: Offer[] | undefined;
+  offers: Offer[];
 }
 
 export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Element {
   const activeCity = useAppSelector((state) => state.activeCity);
+  const isOffersLoaded = useAppSelector((state) => state.isOffersLoaded);
   const [currentOption, setCurrentOption] = useState<OptionsTypes>(OptionsTypes.POP);
   const [activeOffer, setActiveOffer] = useState<string | null>(null);
-
   const handleActiveOfferChange = (activeOfferId: string) => setActiveOffer(activeOfferId);
 
   let filteredOffers = filterByCity(offers, activeCity);
   if(currentOption !== OptionsTypes.POP) {
     filteredOffers = SortFunctions[currentOption](filteredOffers);
   }
-  const activeCityData = filteredOffers?.length ? filteredOffers[0].city : null;
+  const activeCityData = filteredOffers.length ? filteredOffers[0].city : null;
+
+  if(!isOffersLoaded) {
+    return <Spinner/>;
+  }
 
   return (
     <main className="page__main page__main--index">
@@ -31,11 +36,12 @@ export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Eleme
       <div className="tabs">
         <CitiesList cities={Cities} activeCity={activeCity}/>
       </div>
+
       <div className="cities">
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{filteredOffers?.length} places to stay in {activeCity}</b>
+            <b className="places__found">{filteredOffers.length} places to stay in {activeCity}</b>
             <OptionsList currentOption={currentOption} changeOption={setCurrentOption}/>
             <OffersList offers={filteredOffers} onChange={handleActiveOfferChange}/>
           </section>
@@ -47,6 +53,8 @@ export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Eleme
           </div>
         </div>
       </div>
+
+
     </main>
   );
 

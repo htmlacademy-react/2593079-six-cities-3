@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
-import { Offer } from '../../mocks/offers';
 import {Icon, layerGroup, Marker} from 'leaflet';
 import useMap from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
+import { Offer } from '../../types';
 
 export type City = {
   name: string;

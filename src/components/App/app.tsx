@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { offersMock } from '../../mocks/offers';
 import MainPage from '../../pages/main-page/main-page';
 import { AuthorizationStatus, RoutePath } from '../../const';
 import Layout from '../layout/layout';
@@ -19,7 +18,7 @@ export default function App(): JSX.Element {
           <Route path={RoutePath.Offer} element={<OfferPage authorizationStatus={AuthorizationStatus.Auth}/>}/>
           <Route path={RoutePath.Favorites} element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <FavoritesPage offers={offersMock}/>
+              <FavoritesPage/>
             </PrivateRoute>
           }
           >

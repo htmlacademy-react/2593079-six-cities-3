@@ -3,7 +3,7 @@ import Map from '../../components/map/map';
 import OffersList from '../../components/offers-list/offers-list';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import { AuthorizationStatus } from '../../const';
-import { offersMock } from '../../mocks/offers';
+import { useAppSelector } from '../../hooks/store';
 import { reviews } from '../../mocks/reviews';
 
 
@@ -12,6 +12,8 @@ type OfferPageProps = {
 }
 
 export default function OfferPage({authorizationStatus}: OfferPageProps): JSX.Element {
+
+  const offers = useAppSelector((state) => state.offers);
   return (
     <main className="page__main page__main--offer">
       <section className="offer">
@@ -149,7 +151,7 @@ export default function OfferPage({authorizationStatus}: OfferPageProps): JSX.El
           </div>
         </div>
         <section className="container map">
-          <Map points={offersMock.slice(0, 3)} city={offersMock[0].city} />
+          <Map points={offers.slice(0, 3)} city={offers[0].city} />
         </section>
 
       </section>
@@ -158,7 +160,7 @@ export default function OfferPage({authorizationStatus}: OfferPageProps): JSX.El
           <h2 className="near-places__title">
             Other places in the neighbourhood
           </h2>
-          <OffersList offers={offersMock.slice(0, 3)} isForOfferPage/>
+          <OffersList offers={offers.slice(0, 3)} isForOfferPage/>
         </section>
       </div>
     </main>

@@ -1,4 +1,4 @@
-import { Offer } from './mocks/offers';
+import { Offer } from './types';
 
 enum AuthorizationStatus {
   Auth= 'Auth',
@@ -20,10 +20,19 @@ enum OptionsTypes {
   POP = 'POP'
 }
 
+enum RouteAPI {
+  GET_OFFERS = '/offers',
+  GET_OFFER = '/offers/',
+  GET_FAVORITES = '/favorite',
+  GET_COMMENTS = '/comments/',
+  LOGIN = '/login',
+  LOGOUT = '/logout'
+}
+
 const SortFunctions = {
-  [OptionsTypes.ASC]: (offers: Offer[] | undefined) => offers?.sort((a: Offer, b: Offer) => a.price - b.price),
-  [OptionsTypes.DSC]: (offers: Offer[] | undefined) => offers?.sort((a: Offer, b: Offer) => b.price - a.price),
-  [OptionsTypes.TOP]: (offers: Offer[] | undefined) => offers?.sort((a: Offer, b: Offer) => b.rating - a.rating),
+  [OptionsTypes.ASC]: (offers: Offer[]) => offers?.sort((a: Offer, b: Offer) => a.price - b.price),
+  [OptionsTypes.DSC]: (offers: Offer[]) => offers?.sort((a: Offer, b: Offer) => b.price - a.price),
+  [OptionsTypes.TOP]: (offers: Offer[]) => offers?.sort((a: Offer, b: Offer) => b.rating - a.rating),
 };
 
 const URL_MARKER_DEFAULT =
@@ -34,4 +43,4 @@ const URL_MARKER_CURRENT =
 
 const Cities: string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-export {AuthorizationStatus, RoutePath, Cities, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, OptionsTypes, SortFunctions};
+export {AuthorizationStatus, RoutePath, Cities, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, OptionsTypes, SortFunctions, RouteAPI};
