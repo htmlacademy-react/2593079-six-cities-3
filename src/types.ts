@@ -23,18 +23,16 @@ id: string;
 }
 
 export type userData = {
-
-name: string;
-avatarUrl: string;
-isPro: boolean;
-email: string;
-token: string;
-
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+  email: string;
+  token: string;
 }
 
 export type userLoginErrorData = {
-errorType: string;
-message: string;
+  errorType: string;
+  message: string;
 }
 export const loginData = {
   email: 'SomeEmail890@gmail.com',
