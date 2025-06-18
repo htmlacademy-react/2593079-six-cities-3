@@ -1,4 +1,4 @@
-import { useEffect, useState, MouseEvent, useRef } from 'react';
+import { useEffect, useState, MouseEvent } from 'react';
 import { OptionsTypes } from '../../const';
 
 type OptionsListProps = {
@@ -10,11 +10,6 @@ type OptionsListProps = {
 export default function OptionsList({currentOption, changeOption}: OptionsListProps): JSX.Element {
 
   const [isOptionsShown, setOptionsShown] = useState<boolean>(false);
-  const optionsElements = useRef<HTMLLIElement[]>([]);
-
-  const setRef = (el: HTMLLIElement, index: number) => {
-    optionsElements.current[index] = el;
-  };
 
 
   const onClick = (e: MouseEvent<HTMLElement>) => {
@@ -32,15 +27,7 @@ export default function OptionsList({currentOption, changeOption}: OptionsListPr
       }
     };
 
-    optionsElements.current.forEach((el: HTMLLIElement) => {
-      el?.classList.remove('places__option--active');
-    });
     document.addEventListener('click', onDocumentClick);
-    const activeElem = document.querySelector(`li[data-option="${currentOption}"]`);
-    if (activeElem) {
-      activeElem.classList.add('places__option--active');
-    }
-
     return () => document.removeEventListener('click', onDocumentClick);
 
 
@@ -61,15 +48,13 @@ export default function OptionsList({currentOption, changeOption}: OptionsListPr
       </span>
       {isOptionsShown &&
       <ul className="places__options places__options--custom" style={{display: 'block'}}>
-        <li className="places__option" onClick={onClick} ref={(el) => setRef(el as HTMLLIElement, 0)}
-          data-option={OptionsTypes.POP} tabIndex={0}
-        >Popular
+        <li className={`places__option ${currentOption === OptionsTypes.POP ? 'places__option--active' : ''}`} onClick={onClick} data-option={OptionsTypes.POP} tabIndex={0}>Popular
         </li>
-        <li className="places__option" onClick={onClick} ref={(el) => setRef(el as HTMLLIElement, 1)} data-option={OptionsTypes.ASC} tabIndex={0}>Price: low to high
+        <li className={`places__option ${currentOption === OptionsTypes.ASC ? 'places__option--active' : ''}`} onClick={onClick} data-option={OptionsTypes.ASC} tabIndex={0}>Price: low to high
         </li>
-        <li className="places__option" onClick={onClick} ref={(el) => setRef(el as HTMLLIElement, 2)} data-option={OptionsTypes.DSC} tabIndex={0}>Price: high to low
+        <li className={`places__option ${currentOption === OptionsTypes.DSC ? 'places__option--active' : ''}`} onClick={onClick} data-option={OptionsTypes.DSC} tabIndex={0}>Price: high to low
         </li>
-        <li className="places__option" onClick={onClick} ref={(el) => setRef(el as HTMLLIElement, 3)} data-option={OptionsTypes.TOP} tabIndex={0}>Top rated first
+        <li className={`places__option ${currentOption === OptionsTypes.TOP ? 'places__option--active' : ''}`} onClick={onClick} data-option={OptionsTypes.TOP} tabIndex={0}>Top rated first
         </li>
       </ul>}
 
