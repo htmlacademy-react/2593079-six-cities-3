@@ -33,7 +33,7 @@ export default function OptionsList({currentOption, changeOption}: OptionsListPr
     };
 
     optionsElements.current.forEach((el: HTMLLIElement) => {
-      el.classList.remove('places__option--active');
+      el?.classList.remove('places__option--active');
     });
     document.addEventListener('click', onDocumentClick);
     const activeElem = document.querySelector(`li[data-option="${currentOption}"]`);
