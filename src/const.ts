@@ -1,4 +1,4 @@
-import { Offer } from './types';
+import { LoginData, Offer } from './types';
 
 enum AuthorizationStatus {
   Auth= 'Auth',
@@ -43,4 +43,9 @@ const URL_MARKER_CURRENT =
 
 const Cities: string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-export {AuthorizationStatus, RoutePath, Cities, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, OptionsTypes, SortFunctions, RouteAPI};
+const loginData: LoginData = {
+  email: 'SomeEmail890@gmail.com',
+  password: 'password1'
+};
+
+export {AuthorizationStatus, RoutePath, Cities, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, OptionsTypes, SortFunctions, RouteAPI, loginData};

@@ -34,7 +34,8 @@ export type userLoginErrorData = {
   errorType: string;
   message: string;
 }
-export const loginData = {
-  email: 'SomeEmail890@gmail.com',
-  password: 'password1'
-};
+
+export type LoginData = {
+  email: string;
+  password: string;
+}
