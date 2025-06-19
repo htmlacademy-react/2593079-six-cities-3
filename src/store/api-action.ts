@@ -3,7 +3,8 @@ import { AppDispatch } from './types';
 import { AxiosInstance } from 'axios';
 import { AuthorizationStatus, RouteAPI } from '../const';
 import { setAuthStatus, setOffers, setOffersIsLoaded } from './action';
-import { Offer, userData, userLoginErrorData } from '../types';
+import { LoginData, Offer, userData, userLoginErrorData } from '../types';
+import { saveToken } from '../services/token';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -27,6 +28,19 @@ export const checkLogin = createAsyncThunk<void, undefined, {
   try {
     await api.get<userData | userLoginErrorData>(RouteAPI.LOGIN);
     dispatch(setAuthStatus(AuthorizationStatus.Auth));
+  } catch {
+    dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
+  }
+});
+
+export const loginAction = createAsyncThunk<void, LoginData, {
+  dispatch: AppDispatch;
+  extra: AxiosInstance;
+}>('loginAction', async (loginData, {dispatch, extra: api}) => {
+  try {
+    const {data} = await api.post<userData>(RouteAPI.LOGIN, loginData);
+    dispatch(setAuthStatus(AuthorizationStatus.Auth));
+    saveToken(data.token);
   } catch {
     dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
   }
