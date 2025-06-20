@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
 import { RoutePath } from '../../const';
 import Layout from '../layout/layout';
@@ -7,11 +7,13 @@ import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import OfferPage from '../../pages/offer-page/offer-page';
+import { browserHistory } from '../../browser-history';
+import HistoryRouter from '../history-router/history-router';
 
 
 export default function App(): JSX.Element {
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path={RoutePath.Main} element={<Layout/>}>
           <Route index element={<MainPage/>}/>
@@ -29,11 +31,6 @@ export default function App(): JSX.Element {
         <Route path="*" element={<NotFoundPage/>}/>
 
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
-
-
-//  return (
-//     <MainPage offers={offers}/>
-//   );
