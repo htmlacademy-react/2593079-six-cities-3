@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch } from './types';
 import { AxiosInstance } from 'axios';
-import { AuthorizationStatus, RouteAPI } from '../const';
-import { setAuthStatus, setOffers, setOffersIsLoaded } from './action';
+import { AuthorizationStatus, RouteAPI, RoutePath } from '../const';
+import { redirectTo, setAuthStatus, setOffers, setOffersIsLoaded } from './action';
 import { LoginData, Offer, userData, userLoginErrorData } from '../types';
 import { saveToken } from '../services/token';
 
@@ -41,6 +41,7 @@ export const loginAction = createAsyncThunk<void, LoginData, {
     const {data} = await api.post<userData>(RouteAPI.LOGIN, loginData);
     dispatch(setAuthStatus(AuthorizationStatus.Auth));
     saveToken(data.token);
+    dispatch(redirectTo(RoutePath.Main));
   } catch {
     dispatch(setAuthStatus(AuthorizationStatus.NoAuth));
   }
