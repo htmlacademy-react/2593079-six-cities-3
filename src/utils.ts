@@ -6,4 +6,7 @@ const filterByCity = (offers: Offer[], cityName: string) => offers.filter((currO
 const parseReviewDate = (date: string) => dayjs(date).format('MMMM YYYY');
 const parseDateTime = (date: string) => dayjs(date).format('YYYY-MM-DD');
 
-export {filterByCity, parseReviewDate, parseDateTime};
+const checkLoginInput = (login: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(login);
+const checkPasswordInput = (password: string): boolean => /^(?=.*[A-Za-z])(?=.*\d).+$/.test(password);
+
+export {filterByCity, parseReviewDate, parseDateTime, checkLoginInput, checkPasswordInput};

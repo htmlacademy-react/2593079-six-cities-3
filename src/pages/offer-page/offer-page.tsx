@@ -7,13 +7,11 @@ import { useAppSelector } from '../../hooks/store';
 import { reviews } from '../../mocks/reviews';
 
 
-type OfferPageProps = {
-  authorizationStatus: AuthorizationStatus;
-}
+export default function OfferPage(): JSX.Element {
 
-export default function OfferPage({authorizationStatus}: OfferPageProps): JSX.Element {
-
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const offers = useAppSelector((state) => state.offers);
+
   return (
     <main className="page__main page__main--offer">
       <section className="offer">
