@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/store';
-import { changeCity } from '../../store/action';
+import { changeCity } from '../../store/app/app';
 
 type CitiesListProps = {
   cities: string[];

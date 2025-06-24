@@ -1,10 +1,11 @@
 import { Outlet } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/store';
 import { AuthorizationStatus } from '../../const';
+import { getAuthStatus } from '../../store/auth/selectors';
 
 
 export default function Layout(): JSX.Element {
-  const isAuthorized = useAppSelector((state) => state.authorizationStatus) === AuthorizationStatus.Auth;
+  const isAuthorized = useAppSelector(getAuthStatus) === AuthorizationStatus.Auth;
 
   return (
     <div className="page">

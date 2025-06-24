@@ -48,4 +48,17 @@ const loginData: LoginData = {
   password: 'password1'
 };
 
-export {AuthorizationStatus, RoutePath, Cities, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, OptionsTypes, SortFunctions, RouteAPI, loginData};
+export const enum RequestStatus {
+  Idle,
+  Pending,
+  Loaded,
+  Failed
+}
+
+enum NameSpace {
+  Data = 'data',
+  App = 'app',
+  Auth = 'auth',
+}
+
+export {AuthorizationStatus, RoutePath, Cities, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, OptionsTypes, SortFunctions, RouteAPI, loginData, NameSpace};

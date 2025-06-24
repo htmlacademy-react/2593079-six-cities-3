@@ -3,10 +3,11 @@
 // import OffersList from '../../components/offers-list/offers-list';
 import OffersList from '../../components/offers-list/offers-list';
 import { useAppSelector } from '../../hooks/store';
+import { getOffers } from '../../store/data/selectors';
 
 
 export default function FavoritesPage(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
   const favoritedOffers = offers.filter((offer) => offer.isFavorite);
   const uniquePlaces = favoritedOffers.reduce<string[]>((uniqueCities, offer) => {
     if(uniqueCities.indexOf(offer.city.name) === -1) {

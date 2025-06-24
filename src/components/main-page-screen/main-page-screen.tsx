@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import OffersList from '../offers-list/offers-list';
-import { Cities, OptionsTypes, SortFunctions } from '../../const';
+import { Cities, OptionsTypes, RequestStatus, SortFunctions } from '../../const';
 import { filterByCity } from '../../utils';
 import Map from '../map/map';
 import { useAppSelector } from '../../hooks/store';
@@ -8,14 +8,16 @@ import CitiesList from '../cities-list/cities-list';
 import OptionsList from '../options-list/options-list';
 import { Offer } from '../../types';
 import Spinner from '../spinner/spinner';
+import { getActiveCity } from '../../store/app/selectors';
+import { getOffersStatus } from '../../store/data/selectors';
 
 type MainPageScreenProps = {
   offers: Offer[];
 }
 
 export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Element {
-  const activeCity = useAppSelector((state) => state.activeCity);
-  const isOffersLoaded = useAppSelector((state) => state.isOffersLoaded);
+  const activeCity = useAppSelector(getActiveCity);
+  const offersStatus = useAppSelector(getOffersStatus);
   const [currentOption, setCurrentOption] = useState<OptionsTypes>(OptionsTypes.POP);
   const [activeOffer, setActiveOffer] = useState<string | null>(null);
   const handleActiveOfferChange = (activeOfferId: string) => setActiveOffer(activeOfferId);
@@ -26,7 +28,7 @@ export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Eleme
   }
   const activeCityData = filteredOffers.length ? filteredOffers[0].city : null;
 
-  if(!isOffersLoaded) {
+  if(offersStatus === RequestStatus.Pending) {
     return <Spinner/>;
   }
 

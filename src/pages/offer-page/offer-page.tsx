@@ -5,12 +5,14 @@ import ReviewsList from '../../components/reviews-list/reviews-list';
 import { AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks/store';
 import { reviews } from '../../mocks/reviews';
+import { getAuthStatus } from '../../store/auth/selectors';
+import { getOffers } from '../../store/data/selectors';
 
 
 export default function OfferPage(): JSX.Element {
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const offers = useAppSelector((state) => state.offers);
+  const authorizationStatus = useAppSelector(getAuthStatus);
+  const offers = useAppSelector(getOffers);
 
   return (
     <main className="page__main page__main--offer">
