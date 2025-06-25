@@ -3,9 +3,10 @@ import { AppDispatch } from './types';
 import { AxiosInstance } from 'axios';
 import { RouteAPI, RoutePath } from '../const';
 import { redirectTo } from './action';
-import { LoginData, Offer, userData, userLoginErrorData } from '../types';
+import { LoginData, Offer, OfferData, Review, userData, userLoginErrorData } from '../types';
 import { saveToken } from '../services/token';
 import { setOffers } from './data/data';
+import { setCommentData, setNearbyData, setOfferData } from './offer/offer';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -29,5 +30,31 @@ export const loginAction = createAsyncThunk<void, LoginData, {
   const {data} = await api.post<userData>(RouteAPI.LOGIN, loginData);
   saveToken(data.token);
   dispatch(redirectTo(RoutePath.Main));
+
+});
+
+export const fetchOffer = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  extra: AxiosInstance;
+}>('fetchOffer',async (id, {extra: api, dispatch}) => {
+  const {data} = await api.get<OfferData>(`${RouteAPI.GET_OFFER}/${id}`);
+  dispatch(setOfferData(data));
+});
+
+export const fetchComments = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  extra: AxiosInstance;
+}>('fetchOffer',async (id, {extra: api, dispatch}) => {
+  const {data} = await api.get<Review[]>(`${RouteAPI.GET_COMMENTS}/${id}`);
+  dispatch(setCommentData(data));
+});
+
+export const fetchNearbyOffers = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  extra: AxiosInstance;
+}>('fetchOffer',async (id, {extra: api, dispatch}) => {
+
+  const {data} = await api.get<Offer[]>(`${RouteAPI.GET_OFFER}/${id}/nearby`);
+  dispatch(setNearbyData(data));
 
 });

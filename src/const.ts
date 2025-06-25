@@ -41,6 +41,8 @@ const URL_MARKER_DEFAULT =
 const URL_MARKER_CURRENT =
   '/img/pin-active.svg';
 
+const MAX_NEARBY_PLACES_COUNT = 3;
+
 const Cities: string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 const loginData: LoginData = {
@@ -59,6 +61,8 @@ enum NameSpace {
   Data = 'data',
   App = 'app',
   Auth = 'auth',
+  'Offer' = 'offer'
 }
 
-export {AuthorizationStatus, RoutePath, Cities, URL_MARKER_DEFAULT, URL_MARKER_CURRENT, OptionsTypes, SortFunctions, RouteAPI, loginData, NameSpace};
+
+export {AuthorizationStatus, RoutePath, Cities, URL_MARKER_DEFAULT, MAX_NEARBY_PLACES_COUNT, URL_MARKER_CURRENT, OptionsTypes, SortFunctions, RouteAPI, loginData, NameSpace};
