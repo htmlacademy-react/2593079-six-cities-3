@@ -86,3 +86,8 @@ export type Review = {
   comment: string;
   rating: number;
 };
+
+export type PostCommentData = {
+  comment: string;
+  rating: number;
+}

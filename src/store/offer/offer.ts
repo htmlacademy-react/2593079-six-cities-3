@@ -33,6 +33,9 @@ const offerSlice = createSlice({
     setStatus(state, action: {payload: RequestStatus}) {
       state.status = action.payload;
     },
+    addComment(state, action: {payload: Review}) {
+      state.commentData.push(action.payload);
+    },
     clearOfferData(state) {
       state.status = RequestStatus.Idle;
       state.commentData = [];
@@ -52,5 +55,5 @@ const offerSlice = createSlice({
 
 });
 
-export const {setOfferData, setNearbyData, setCommentData, setStatus, clearOfferData} = offerSlice.actions;
+export const {setOfferData, setNearbyData, setCommentData, setStatus, clearOfferData, addComment} = offerSlice.actions;
 export default offerSlice.reducer;
