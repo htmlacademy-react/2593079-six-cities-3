@@ -9,4 +9,6 @@ const parseDateTime = (date: string) => dayjs(date).format('YYYY-MM-DD');
 const checkLoginInput = (login: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(login);
 const checkPasswordInput = (password: string): boolean => /^(?=.*[A-Za-z])(?=.*\d).+$/.test(password);
 
-export {filterByCity, parseReviewDate, parseDateTime, checkLoginInput, checkPasswordInput};
+const toCapitalize = (text: string) => `${text[0].toUpperCase()}${text.slice(1)}`;
+
+export {filterByCity, parseReviewDate, parseDateTime, checkLoginInput, checkPasswordInput, toCapitalize};
