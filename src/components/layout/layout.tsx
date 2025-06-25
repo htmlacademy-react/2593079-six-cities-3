@@ -1,10 +1,12 @@
 import { Outlet } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/store';
 import { AuthorizationStatus } from '../../const';
+import { getAuthStatus, getUserEmail } from '../../store/auth/selectors';
 
 
 export default function Layout(): JSX.Element {
-  const isAuthorized = useAppSelector((state) => state.authorizationStatus) === AuthorizationStatus.Auth;
+  const isAuthorized = useAppSelector(getAuthStatus) === AuthorizationStatus.Auth;
+  const email = useAppSelector(getUserEmail);
 
   return (
     <div className="page">
@@ -34,7 +36,7 @@ export default function Layout(): JSX.Element {
                     {isAuthorized ?
                       <>
                         <span className="header__user-name user__name">
-                    Oliver.conner@gmail.com
+                          {email}
                         </span>
                         <span className="header__favorite-count">3</span>
                       </>

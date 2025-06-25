@@ -1,12 +1,54 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { useAppDispatch } from '../../hooks/store';
+import { postComment } from '../../store/api-action';
+
+type CommentFormProps = {
+  id: string;
+}
 
 
-export default function CommentForm(): JSX.Element {
+export default function CommentForm({id}: CommentFormProps): JSX.Element {
+  const dispatch = useAppDispatch();
 
   const [commentState, setState] = useState({
-    text: '',
-    rating: 3
+    comment: '',
+    rating: 0
   });
+
+  const commentForm = useRef<HTMLFormElement>(null);
+  const textForm = useRef<HTMLTextAreaElement>(null);
+  const ratingForm = useRef<HTMLInputElement>(null);
+  const submitBtn = useRef<HTMLButtonElement>(null);
+
+  const onFormInput = () => {
+    if(commentState.comment.length > 49 && commentState.rating !== 0) {
+      submitBtn.current?.removeAttribute('disabled');
+    }
+  };
+
+  const onFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const text = commentState.comment;
+    const rating = commentState.rating;
+
+
+    if(!text || !rating) {
+      return;
+    }
+
+    if(text.trim().length > 0 && rating) {
+      dispatch(postComment({
+        id,
+        body: commentState
+      }));
+
+      setState({
+        comment: '',
+        rating: 0
+      });
+    }
+  };
+
 
   const handleRateChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -18,11 +60,11 @@ export default function CommentForm(): JSX.Element {
 
   const handleTextChange = (e: ChangeEvent<HTMLTextAreaElement>) => setState({
     ...commentState,
-    text: e.target.value
+    comment: e.target.value
   });
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" ref={commentForm} onSubmit={onFormSubmit} onInput={onFormInput}>
       <label className="reviews__label form__label" htmlFor="review">
                   Your review
       </label>
@@ -30,9 +72,10 @@ export default function CommentForm(): JSX.Element {
         <input
           className="form__rating-input visually-hidden"
           name="rating"
-          defaultValue={5}
+          defaultValue={commentState.rating}
           id="5-stars"
           type="radio"
+          ref={ratingForm}
           onChange={handleRateChange}
         />
         <label
@@ -117,8 +160,9 @@ export default function CommentForm(): JSX.Element {
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
+        ref={textForm}
         placeholder="Tell how was your stay, what you like and what can be improved"
-        defaultValue={commentState.text}
+        defaultValue={commentState.comment}
         onChange={handleTextChange}
       />
       <div className="reviews__button-wrapper">
@@ -132,6 +176,7 @@ export default function CommentForm(): JSX.Element {
           className="reviews__submit form__submit button"
           type="submit"
           disabled
+          ref={submitBtn}
         >
                     Submit
         </button>
