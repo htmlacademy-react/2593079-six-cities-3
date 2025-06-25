@@ -7,6 +7,7 @@ import { LoginData, Offer, OfferData, Review, userData, userLoginErrorData } fro
 import { saveToken } from '../services/token';
 import { setOffers } from './data/data';
 import { setCommentData, setNearbyData, setOfferData } from './offer/offer';
+import { saveAuthData } from './auth/auth';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -29,6 +30,7 @@ export const loginAction = createAsyncThunk<void, LoginData, {
 
   const {data} = await api.post<userData>(RouteAPI.LOGIN, loginData);
   saveToken(data.token);
+  dispatch(saveAuthData(data));
   dispatch(redirectTo(RoutePath.Main));
 
 });
@@ -50,6 +52,16 @@ export const fetchComments = createAsyncThunk<void, string, {
 });
 
 export const fetchNearbyOffers = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  extra: AxiosInstance;
+}>('fetchOffer',async (id, {extra: api, dispatch}) => {
+
+  const {data} = await api.get<Offer[]>(`${RouteAPI.GET_OFFER}/${id}/nearby`);
+  dispatch(setNearbyData(data));
+
+});
+
+export const postComment = createAsyncThunk<void, string, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>('fetchOffer',async (id, {extra: api, dispatch}) => {
