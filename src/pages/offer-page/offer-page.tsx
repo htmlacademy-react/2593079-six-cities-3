@@ -7,7 +7,7 @@ import { AuthorizationStatus, MAX_NEARBY_PLACES_COUNT, RequestStatus } from '../
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { fetchComments, fetchNearbyOffers, fetchOffer } from '../../store/api-action';
 import { getAuthStatus } from '../../store/auth/selectors';
-import { getComments, getNearby, getOffer, getOfferStatus } from '../../store/offer/selectors';
+import { getNearby, getOffer, getOfferStatus } from '../../store/offer/selectors';
 import { useEffect } from 'react';
 import { clearOfferData } from '../../store/offer/offer';
 import Spinner from '../../components/spinner/spinner';
@@ -23,8 +23,8 @@ export default function OfferPage(): JSX.Element {
   const authorizationStatus = useAppSelector(getAuthStatus);
   const offer = useAppSelector(getOffer);
   const offerStatus = useAppSelector(getOfferStatus);
-  const comments = useAppSelector(getComments);
   const nearbyPlaces = useAppSelector(getNearby);
+
 
   useEffect(()=> {
     if(!offer && offerStatus === RequestStatus.Idle) {
@@ -135,8 +135,8 @@ export default function OfferPage(): JSX.Element {
               </div>
             </div>
             <section className="offer__reviews reviews">
-              <ReviewsList reviews={comments}/>
-              {authorizationStatus === AuthorizationStatus.Auth && <CommentForm/>}
+              <ReviewsList/>
+              {authorizationStatus === AuthorizationStatus.Auth && <CommentForm id={offer.id}/>}
             </section>
           </div>
         </div>

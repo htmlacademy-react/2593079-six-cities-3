@@ -1,11 +1,14 @@
-import { ReviewType } from '../../mocks/reviews';
+import { useAppSelector } from '../../hooks/store';
+import { getComments } from '../../store/offer/selectors';
 import Review from '../review/review';
 
-type ReviewsListProps = {
-  reviews: ReviewType[];
-}
+// type ReviewsListProps = {
+//   reviews: ReviewType[];
+// }
 
-export default function ReviewsList({reviews}: ReviewsListProps): JSX.Element {
+export default function ReviewsList(): JSX.Element {
+  const reviews = useAppSelector(getComments);
+
   return (
     <>
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
