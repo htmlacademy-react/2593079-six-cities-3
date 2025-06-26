@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../const';
 import { checkLogin, loginAction } from '../api-action';
 import { userData } from '../../types';
+import { dropToken } from '../../services/token';
 
 
 type AuthState = {
@@ -33,6 +34,12 @@ const AuthSlice = createSlice({
       state.avatarUrl = avatarUrl;
       state.isPro = isPro;
       state.email = email;
+    },
+    deleteAuthData(state) {
+      [state.name, state.isPro, state.avatarUrl, state.email, state.authorizationStatus] =
+      ['', false, '', '', AuthorizationStatus.NoAuth];
+
+      dropToken();
     }
   },
   extraReducers: (builder) => {
@@ -48,5 +55,5 @@ const AuthSlice = createSlice({
   }
 });
 
-export const {setAuthStatus, saveAuthData} = AuthSlice.actions;
+export const {setAuthStatus, saveAuthData, deleteAuthData} = AuthSlice.actions;
 export default AuthSlice.reducer;

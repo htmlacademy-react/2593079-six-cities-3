@@ -3,7 +3,7 @@ import { AppDispatch } from './types';
 import { AxiosInstance } from 'axios';
 import { RouteAPI, RoutePath } from '../const';
 import { redirectTo } from './action';
-import { LoginData, Offer, OfferData, PostCommentData, Review, userData, userLoginErrorData } from '../types';
+import { LoginData, Offer, OfferData, PostCommentData, Review, userData } from '../types';
 import { saveToken } from '../services/token';
 import { setOffers } from './data/data';
 import { addComment, setCommentData, setNearbyData, setOfferData } from './offer/offer';

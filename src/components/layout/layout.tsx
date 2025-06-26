@@ -1,12 +1,20 @@
 import { Link, Outlet } from 'react-router-dom';
-import { useAppSelector } from '../../hooks/store';
+import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { AuthorizationStatus, RoutePath } from '../../const';
 import { getAuthStatus, getUserEmail } from '../../store/auth/selectors';
+import { deleteAuthData } from '../../store/auth/auth';
+import { MouseEventHandler } from 'react';
 
 
 export default function Layout(): JSX.Element {
   const isAuthorized = useAppSelector(getAuthStatus) === AuthorizationStatus.Auth;
   const email = useAppSelector(getUserEmail);
+  const dispatch = useAppDispatch();
+
+
+  const onSignOutClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
+    dispatch(deleteAuthData());
+  };
 
   return (
     <div className="page">
@@ -48,9 +56,9 @@ export default function Layout(): JSX.Element {
                 </li>
                 {isAuthorized &&
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="/login">
+                  <Link className="header__nav-link" to="/login" onClick={onSignOutClick}>
                     <span className="header__signout">Sign out</span>
-                  </a>
+                  </Link>
                 </li>}
 
               </ul>
