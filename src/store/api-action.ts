@@ -19,8 +19,10 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
 
 export const checkLogin = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
-}>('checkLoginAction', async (_, {extra: api}) => {
-  await api.get<userData | userLoginErrorData>(RouteAPI.LOGIN);
+  dispatch: AppDispatch;
+}>('checkLoginAction', async (_, {extra: api, dispatch}) => {
+  const {data} = await api.get<userData>(RouteAPI.LOGIN);
+  dispatch(saveAuthData(data));
 });
 
 export const loginAction = createAsyncThunk<void, LoginData, {

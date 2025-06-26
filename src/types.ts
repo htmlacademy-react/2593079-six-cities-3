@@ -30,11 +30,6 @@ export type userData = {
   token: string;
 }
 
-export type userLoginErrorData = {
-  errorType: string;
-  message: string;
-}
-
 export type LoginData = {
   email: string;
   password: string;

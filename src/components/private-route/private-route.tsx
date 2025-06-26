@@ -5,9 +5,10 @@ import { getAuthStatus } from '../../store/auth/selectors';
 
 type PrivateRouteProps = {
   children: JSX.Element;
+  onlyUnAuth?: boolean;
 }
 
-export default function PrivateRoute({children}: PrivateRouteProps): JSX.Element {
+export default function PrivateRoute({children, onlyUnAuth}: PrivateRouteProps): JSX.Element {
   const isAuthorized = useAppSelector(getAuthStatus) === AuthorizationStatus.Auth;
   return isAuthorized ? children : <Navigate to={RoutePath.Login} />;
 }
