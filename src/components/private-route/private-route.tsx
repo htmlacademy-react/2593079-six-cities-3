@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Location, Navigate, useLocation } from 'react-router-dom';
 import { AuthorizationStatus, RoutePath } from '../../const';
 import { useAppSelector } from '../../hooks/store';
 import { getAuthStatus } from '../../store/auth/selectors';
@@ -8,7 +8,23 @@ type PrivateRouteProps = {
   onlyUnAuth?: boolean;
 }
 
+type FromState = {
+    from?: string;
+};
+
 export default function PrivateRoute({children, onlyUnAuth}: PrivateRouteProps): JSX.Element {
+
+  const location = useLocation() as Location<FromState> ;
   const isAuthorized = useAppSelector(getAuthStatus) === AuthorizationStatus.Auth;
-  return isAuthorized ? children : <Navigate to={RoutePath.Login} />;
+
+  if(onlyUnAuth && isAuthorized) {
+    const from = location.state?.from || RoutePath.Main;
+    return <Navigate to={from} state={{from: from}}/>;
+  }
+
+  if(!onlyUnAuth && !isAuthorized) {
+    return <Navigate to={RoutePath.Login}/>;
+  }
+
+  return children;
 }

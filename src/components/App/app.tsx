@@ -19,7 +19,7 @@ export default function App(): JSX.Element {
           <Route index element={<MainPage/>}/>
           <Route path={RoutePath.Offer} element={<OfferPage/>}/>
           <Route path={RoutePath.Favorites} element={
-            <PrivateRoute >
+            <PrivateRoute>
               <FavoritesPage/>
             </PrivateRoute>
           }
@@ -27,7 +27,12 @@ export default function App(): JSX.Element {
           </Route>
 
         </Route>
-        <Route path={RoutePath.Login} element={<LoginPage/>}/>
+        <Route path={RoutePath.Login} element={
+          <PrivateRoute onlyUnAuth>
+            <LoginPage/>
+          </PrivateRoute>
+        }
+        />
         <Route path="*" element={<NotFoundPage/>}/>
 
       </Routes>
