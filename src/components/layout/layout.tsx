@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/store';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, RoutePath } from '../../const';
 import { getAuthStatus, getUserEmail } from '../../store/auth/selectors';
 
 
@@ -36,7 +36,9 @@ export default function Layout(): JSX.Element {
                     {isAuthorized ?
                       <>
                         <span className="header__user-name user__name">
-                          {email}
+                          <Link to={RoutePath.Favorites}>
+                            {email}
+                          </Link>
                         </span>
                         <span className="header__favorite-count">3</span>
                       </>

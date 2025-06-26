@@ -1,6 +1,3 @@
-// import Footer from '../../components/footer/footer';
-// import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
-// import OffersList from '../../components/offers-list/offers-list';
 import OffersList from '../../components/offers-list/offers-list';
 import { useAppSelector } from '../../hooks/store';
 import { getOffers } from '../../store/data/selectors';
