@@ -1,7 +1,7 @@
 import { Cities } from '../../const';
 import { useAppSelector } from '../../hooks/store';
 import { getActiveCity } from '../../store/app/selectors';
-import CitiesList from '../cities-list/cities-list';
+import {MemoizedCitiesList} from '../cities-list/cities-list';
 
 export default function MainEmpty(): JSX.Element {
   const activeCity = useAppSelector(getActiveCity);
@@ -9,7 +9,7 @@ export default function MainEmpty(): JSX.Element {
     <main className="page__main page__main--index page__main--index-empty">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <CitiesList activeCity={activeCity} cities={Cities}/>
+        <MemoizedCitiesList activeCity={activeCity} cities={Cities}/>
       </div>
       <div className="cities">
         <div className="cities__places-container cities__places-container--empty container">

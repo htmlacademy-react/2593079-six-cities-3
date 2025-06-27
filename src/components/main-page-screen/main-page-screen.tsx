@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import OffersList from '../offers-list/offers-list';
+import { useCallback, useState } from 'react';
+import {MemoizedOffersList} from '../offers-list/offers-list';
 import { Cities, OptionsTypes, RequestStatus, SortFunctions } from '../../const';
 import { filterByCity } from '../../utils';
-import Map from '../map/map';
+import {MemoizedMap} from '../map/map';
 import { useAppSelector } from '../../hooks/store';
 import {MemoizedCitiesList} from '../cities-list/cities-list';
 import OptionsList from '../options-list/options-list';
@@ -20,7 +20,7 @@ export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Eleme
   const offersStatus = useAppSelector(getOffersStatus);
   const [currentOption, setCurrentOption] = useState<OptionsTypes>(OptionsTypes.POP);
   const [activeOffer, setActiveOffer] = useState<string | null>(null);
-  const handleActiveOfferChange = (activeOfferId: string) => setActiveOffer(activeOfferId);
+  const handleActiveOfferChange = useCallback((activeOfferId: string) => setActiveOffer(activeOfferId), []);
 
   let filteredOffers = filterByCity(offers, activeCity);
   if(currentOption !== OptionsTypes.POP) {
@@ -45,12 +45,12 @@ export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Eleme
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{filteredOffers.length} places to stay in {activeCity}</b>
             <OptionsList currentOption={currentOption} changeOption={setCurrentOption}/>
-            <OffersList offers={filteredOffers} onChange={handleActiveOfferChange}/>
+            <MemoizedOffersList offers={filteredOffers} onChange={handleActiveOfferChange}/>
           </section>
           <div className="cities__right-section">
             {activeCityData &&
             <section className="cities__map map">
-              <Map points={filteredOffers} activePoint={activeOffer} city={activeCityData}></Map>
+              <MemoizedMap points={filteredOffers} activePoint={activeOffer} city={activeCityData}></MemoizedMap>
             </section>}
           </div>
         </div>

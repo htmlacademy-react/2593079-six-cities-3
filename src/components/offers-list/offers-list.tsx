@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Offer } from '../../types';
 import NearOfferCard from '../near-offer-card/near-offer-card';
 import PlaceCard from '../place-card/place-card';
@@ -18,7 +19,7 @@ const getListClassName = (isForFavPage: boolean | undefined, isForOfferPage: boo
   return 'cities__places-list tabs__content places__list';
 };
 
-export default function OffersList({offers, isForFavPage, isForOfferPage, onChange}: OffersListProps): JSX.Element {
+export function OffersList({offers, isForFavPage, isForOfferPage, onChange}: OffersListProps): JSX.Element {
 
   return (
     <div className={getListClassName(isForFavPage, isForOfferPage)}>
@@ -33,3 +34,6 @@ export default function OffersList({offers, isForFavPage, isForOfferPage, onChan
     </div>
   );
 }
+
+
+export const MemoizedOffersList = memo(OffersList);

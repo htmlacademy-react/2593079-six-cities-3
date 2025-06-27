@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import OffersList from '../../components/offers-list/offers-list';
+import {MemoizedOffersList} from '../../components/offers-list/offers-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { } from '../../store/data/selectors';
 import { getFavorites, getFavoritesStatus } from '../../store/favorites/selectors';
@@ -44,7 +44,7 @@ export default function FavoritesPage(): JSX.Element {
                       </a>
                     </div>
                   </div>
-                  <OffersList offers={filteredOffers} isForFavPage/>
+                  <MemoizedOffersList offers={filteredOffers} isForFavPage/>
                 </li>
               );
             })}
