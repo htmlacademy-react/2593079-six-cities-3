@@ -47,23 +47,20 @@ export default function Layout(): JSX.Element {
               <ul className="header__nav-list">
 
                 <li className="header__nav-item user">
-                  <a
+                  <Link to={RoutePath.Favorites}
                     className="header__nav-link header__nav-link--profile"
-                    href="/favorites"
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper"/>
                     {isAuthorized ?
                       <>
                         <span className="header__user-name user__name">
-                          <Link to={RoutePath.Favorites}>
-                            {email}
-                          </Link>
+                          {email}
                         </span>
                         <span className="header__favorite-count">{favorites.length}</span>
                       </>
                       : <span className="header__login">Sign in</span>}
 
-                  </a>
+                  </Link>
                 </li>
                 {isAuthorized &&
                 <li className="header__nav-item">
