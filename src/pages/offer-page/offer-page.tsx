@@ -1,14 +1,14 @@
 import { useParams } from 'react-router-dom';
 import CommentForm from '../../components/comment-form/comment-form';
-import {MemoizedMap} from '../../components/map/map';
-import {MemoizedOffersList} from '../../components/offers-list/offers-list';
+import Map from '../../components/map/map';
+import OffersList from '../../components/offers-list/offers-list';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import { AuthorizationStatus, MAX_NEARBY_PLACES_COUNT, RequestStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { fetchComments, fetchNearbyOffers, fetchOffer } from '../../store/api-action';
 import { getAuthStatus } from '../../store/auth/selectors';
 import { getNearby, getOffer, getOfferStatus } from '../../store/offer/selectors';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { clearOfferData } from '../../store/offer/offer';
 import Spinner from '../../components/spinner/spinner';
 import NotFoundPage from '../not-found-page/not-found-page';
@@ -24,16 +24,6 @@ export default function OfferPage(): JSX.Element {
   const offer = useAppSelector(getOffer);
   const offerStatus = useAppSelector(getOfferStatus);
   const nearbyPlaces = useAppSelector(getNearby);
-
-  const limitedNearbyPlacesData = useMemo(
-    () => {
-      const places = nearbyPlaces.slice(0, MAX_NEARBY_PLACES_COUNT);
-      const city = places[0]?.city;
-      return {places, city};
-
-    },
-    [nearbyPlaces]
-  );
 
 
   useEffect(()=> {
@@ -151,7 +141,7 @@ export default function OfferPage(): JSX.Element {
           </div>
         </div>
         <section className="container map">
-          <MemoizedMap points={limitedNearbyPlacesData.places} city={limitedNearbyPlacesData.city} />
+          <Map points={nearbyPlaces.slice(0, MAX_NEARBY_PLACES_COUNT)} city={nearbyPlaces[0]?.city} />
         </section>
 
       </section>
@@ -160,7 +150,7 @@ export default function OfferPage(): JSX.Element {
           <h2 className="near-places__title">
             Other places in the neighbourhood
           </h2>
-          <MemoizedOffersList offers={limitedNearbyPlacesData.places} isForOfferPage/>
+          <OffersList offers={nearbyPlaces.slice(0, MAX_NEARBY_PLACES_COUNT)} isForOfferPage/>
         </section>
       </div>
     </main>
