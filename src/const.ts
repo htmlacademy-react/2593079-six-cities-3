@@ -61,7 +61,8 @@ enum NameSpace {
   Data = 'data',
   App = 'app',
   Auth = 'auth',
-  'Offer' = 'offer'
+  'Offer' = 'offer',
+  'Favorites' = 'favorites'
 }
 
 

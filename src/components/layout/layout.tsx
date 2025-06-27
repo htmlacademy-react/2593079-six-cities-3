@@ -12,7 +12,7 @@ export default function Layout(): JSX.Element {
   const dispatch = useAppDispatch();
 
 
-  const onSignOutClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
+  const onSignOutClick: MouseEventHandler<HTMLAnchorElement> = () => {
     dispatch(deleteAuthData());
   };
 

@@ -8,6 +8,7 @@ import { saveToken } from '../services/token';
 import { setOffers } from './data/data';
 import { addComment, setCommentData, setNearbyData, setOfferData } from './offer/offer';
 import { saveAuthData } from './auth/auth';
+import { addFavorite, deleteFavorite, setFavorites } from './favorites/favorites';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
@@ -43,6 +44,30 @@ export const fetchOffer = createAsyncThunk<void, string, {
 }>('fetchOffer',async (id, {extra: api, dispatch}) => {
   const {data} = await api.get<OfferData>(`${RouteAPI.GET_OFFER}/${id}`);
   dispatch(setOfferData(data));
+});
+
+export const fetchFavorites = createAsyncThunk<void, void, {
+  dispatch: AppDispatch;
+  extra: AxiosInstance;
+}>('fetchOffer',async (_id, {extra: api, dispatch}) => {
+  const {data} = await api.get<Offer[]>(`${RouteAPI.GET_FAVORITES}`);
+  dispatch(setFavorites(data));
+});
+
+export const addFavoriteRequest = createAsyncThunk<void, Offer, {
+  dispatch: AppDispatch;
+  extra: AxiosInstance;
+}>('fetchOffer',async (offer, {extra: api, dispatch}) => {
+  const {data} = await api.post<Offer>(`${RouteAPI.GET_FAVORITES}/${offer.id}/1`);
+  dispatch(addFavorite(data));
+});
+
+export const deleteFavoriteRequest = createAsyncThunk<void, Offer, {
+  dispatch: AppDispatch;
+  extra: AxiosInstance;
+}>('fetchOffer',async (offer, {extra: api, dispatch}) => {
+  const {data} = await api.post<Offer>(`${RouteAPI.GET_FAVORITES}/${offer.id}/0`);
+  dispatch(deleteFavorite(data));
 });
 
 export const fetchComments = createAsyncThunk<void, string, {
