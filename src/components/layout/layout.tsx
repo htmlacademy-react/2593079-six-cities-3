@@ -1,15 +1,26 @@
 import { Link, Outlet } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
-import { AuthorizationStatus, RoutePath } from '../../const';
+import { AuthorizationStatus, RequestStatus, RoutePath } from '../../const';
 import { getAuthStatus, getUserEmail } from '../../store/auth/selectors';
 import { deleteAuthData } from '../../store/auth/auth';
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useEffect } from 'react';
+import { getFavorites, getFavoritesStatus } from '../../store/favorites/selectors';
+import { fetchFavorites } from '../../store/api-action';
 
 
 export default function Layout(): JSX.Element {
   const isAuthorized = useAppSelector(getAuthStatus) === AuthorizationStatus.Auth;
   const email = useAppSelector(getUserEmail);
   const dispatch = useAppDispatch();
+  const favorites = useAppSelector(getFavorites);
+  const favoritesStatus = useAppSelector(getFavoritesStatus);
+
+
+  useEffect(() => {
+    if(favoritesStatus === RequestStatus.Idle) {
+      dispatch(fetchFavorites);
+    }
+  });
 
 
   const onSignOutClick: MouseEventHandler<HTMLAnchorElement> = () => {
@@ -48,7 +59,7 @@ export default function Layout(): JSX.Element {
                             {email}
                           </Link>
                         </span>
-                        <span className="header__favorite-count">3</span>
+                        <span className="header__favorite-count">{favorites.length}</span>
                       </>
                       : <span className="header__login">Sign in</span>}
 

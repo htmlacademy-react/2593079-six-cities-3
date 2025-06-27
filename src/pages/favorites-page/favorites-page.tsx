@@ -1,17 +1,31 @@
+import { useEffect } from 'react';
 import OffersList from '../../components/offers-list/offers-list';
-import { useAppSelector } from '../../hooks/store';
-import { getOffers } from '../../store/data/selectors';
+import { useAppDispatch, useAppSelector } from '../../hooks/store';
+import { } from '../../store/data/selectors';
+import { getFavorites, getFavoritesStatus } from '../../store/favorites/selectors';
+import { fetchFavorites } from '../../store/api-action';
+import { RequestStatus } from '../../const';
 
 
 export default function FavoritesPage(): JSX.Element {
-  const offers = useAppSelector(getOffers);
-  const favoritedOffers = offers.filter((offer) => offer.isFavorite);
+  const favoritedOffers = useAppSelector(getFavorites);
   const uniquePlaces = favoritedOffers.reduce<string[]>((uniqueCities, offer) => {
     if(uniqueCities.indexOf(offer.city.name) === -1) {
       uniqueCities.push(offer.city.name);
     }
     return uniqueCities;
   } , []).sort();
+
+  const dispatch = useAppDispatch();
+  const favoritesStatus = useAppSelector(getFavoritesStatus);
+
+
+  useEffect(() => {
+    if(favoritesStatus === RequestStatus.Idle) {
+      dispatch(fetchFavorites);
+    }
+  });
+
   return (
     <main className="page__main page__main--favorites">
       <div className="page__favorites-container container">
