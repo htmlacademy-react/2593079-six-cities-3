@@ -4,7 +4,7 @@ import { Cities, OptionsTypes, RequestStatus, SortFunctions } from '../../const'
 import { filterByCity } from '../../utils';
 import Map from '../map/map';
 import { useAppSelector } from '../../hooks/store';
-import CitiesList from '../cities-list/cities-list';
+import {MemoizedCitiesList} from '../cities-list/cities-list';
 import OptionsList from '../options-list/options-list';
 import { Offer } from '../../types';
 import Spinner from '../spinner/spinner';
@@ -36,7 +36,7 @@ export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Eleme
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <CitiesList cities={Cities} activeCity={activeCity}/>
+        <MemoizedCitiesList cities={Cities} activeCity={activeCity}/>
       </div>
 
       <div className="cities">
