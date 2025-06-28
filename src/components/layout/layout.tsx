@@ -1,7 +1,7 @@
 import { Link, Outlet } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { AuthorizationStatus, RequestStatus, RoutePath } from '../../const';
-import { getAuthStatus, getUserEmail } from '../../store/auth/selectors';
+import { getAuthStatus, getUserAvatar, getUserEmail } from '../../store/auth/selectors';
 import { deleteAuthData } from '../../store/auth/auth';
 import { MouseEventHandler, useEffect } from 'react';
 import { getFavorites, getFavoritesStatus } from '../../store/favorites/selectors';
@@ -11,6 +11,7 @@ import { fetchFavorites } from '../../store/api-action';
 export default function Layout(): JSX.Element {
   const isAuthorized = useAppSelector(getAuthStatus) === AuthorizationStatus.Auth;
   const email = useAppSelector(getUserEmail);
+  const avatarUrl = useAppSelector(getUserAvatar);
   const dispatch = useAppDispatch();
   const favorites = useAppSelector(getFavorites);
   const favoritesStatus = useAppSelector(getFavoritesStatus);
@@ -18,7 +19,7 @@ export default function Layout(): JSX.Element {
 
   useEffect(() => {
     if(favoritesStatus === RequestStatus.Idle) {
-      dispatch(fetchFavorites);
+      dispatch(fetchFavorites());
     }
   });
 
@@ -50,7 +51,11 @@ export default function Layout(): JSX.Element {
                   <Link to={RoutePath.Favorites}
                     className="header__nav-link header__nav-link--profile"
                   >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"/>
+                    <div className="header__avatar-wrapper user__avatar-wrapper"
+                      style={{
+                        backgroundImage: `url(${isAuthorized ? avatarUrl : '../img/avatar.svg'})`
+                      }}
+                    />
                     {isAuthorized ?
                       <>
                         <span className="header__user-name user__name">
