@@ -11,4 +11,6 @@ const checkPasswordInput = (password: string): boolean => /^(?=.*[A-Za-z])(?=.*\
 
 const toCapitalize = (text: string) => `${text[0].toUpperCase()}${text.slice(1)}`;
 
-export {filterByCity, parseReviewDate, parseDateTime, checkLoginInput, checkPasswordInput, toCapitalize};
+const getRandomElement = <T>(array: T[]): T | undefined =>array[Math.floor(array.length * Math.random())];
+
+export {filterByCity, parseReviewDate, parseDateTime, checkLoginInput, checkPasswordInput, toCapitalize, getRandomElement};

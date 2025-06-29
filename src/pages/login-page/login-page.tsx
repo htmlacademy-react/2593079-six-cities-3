@@ -2,6 +2,7 @@ import { useRef, FormEvent } from 'react';
 import { checkLoginInput, checkPasswordInput } from '../../utils';
 import { useAppDispatch } from '../../hooks/store';
 import { loginAction } from '../../store/api-action';
+import RandomCityLink from '../../components/random-link/random-city-link';
 
 
 export default function LoginPage(): JSX.Element {
@@ -56,11 +57,7 @@ export default function LoginPage(): JSX.Element {
             </form>
           </section>
           <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <a className="locations__item-link" href="/">
-                <span>Amsterdam</span>
-              </a>
-            </div>
+            <RandomCityLink/>
           </section>
         </div>
       </main>
