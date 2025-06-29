@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, RefObject, useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks/store';
 import { postComment } from '../../store/api-action';
+import { DEFAULT_RATING } from '../../const';
 
 type CommentFormProps = {
   id: string;
@@ -14,29 +15,26 @@ const setBtn = (btnRef: RefObject<HTMLButtonElement>, type: 'on' | 'off') => {
       btnRef.current?.removeAttribute('disabled');
     }
   }
-
 };
-
 
 export default function CommentForm({id}: CommentFormProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const [commentState, setState] = useState({
     comment: '',
-    rating: 4
+    rating: DEFAULT_RATING
   });
 
-  const commentForm = useRef<HTMLFormElement>(null);
-  const textForm = useRef<HTMLTextAreaElement>(null);
-  const ratingForm = useRef<HTMLInputElement>(null);
-  const submitBtn = useRef<HTMLButtonElement>(null);
+  const commentFormRef = useRef<HTMLFormElement>(null);
+  const textFormRef = useRef<HTMLTextAreaElement>(null);
+  const ratingFormRef = useRef<HTMLInputElement>(null);
+  const submitBtnRef = useRef<HTMLButtonElement>(null);
 
   const onFormChange = () => {
     if(commentState.comment.length > 49 && commentState.comment.length < 301) {
-      setBtn(submitBtn, 'on');
+      setBtn(submitBtnRef, 'on');
     } else {
-      setBtn(submitBtn, 'off');
-
+      setBtn(submitBtnRef, 'off');
     }
   };
 
@@ -44,7 +42,6 @@ export default function CommentForm({id}: CommentFormProps): JSX.Element {
     e.preventDefault();
     const text = commentState.comment;
     const rating = commentState.rating;
-
 
     if(!text || !rating) {
       return;
@@ -59,20 +56,15 @@ export default function CommentForm({id}: CommentFormProps): JSX.Element {
         .then(() => {
           setState({
             comment: '',
-            rating: 4
+            rating: DEFAULT_RATING
           });
         });
-
-
     }
   };
 
 
   const handleRateChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    console.log(e.currentTarget);
-
-
     setState({
       ...commentState,
       rating: Number(e.currentTarget.value),
@@ -85,7 +77,7 @@ export default function CommentForm({id}: CommentFormProps): JSX.Element {
   });
 
   return (
-    <form className="reviews__form form" action="#" method="post" ref={commentForm} onSubmit={onFormSubmit} onChange={onFormChange}>
+    <form className="reviews__form form" action="#" method="post" ref={commentFormRef} onSubmit={onFormSubmit} onChange={onFormChange}>
       <label className="reviews__label form__label" htmlFor="review">
                   Your review
       </label>
@@ -96,7 +88,7 @@ export default function CommentForm({id}: CommentFormProps): JSX.Element {
           value={5}
           id="5-stars"
           type="radio"
-          ref={ratingForm}
+          ref={ratingFormRef}
           checked = {commentState.rating === 5}
 
           onChange={handleRateChange}
@@ -189,7 +181,7 @@ export default function CommentForm({id}: CommentFormProps): JSX.Element {
         className="reviews__textarea form__textarea"
         id="review"
         name="review"
-        ref={textForm}
+        ref={textFormRef}
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={commentState.comment}
         onChange={handleTextChange}
@@ -205,7 +197,7 @@ export default function CommentForm({id}: CommentFormProps): JSX.Element {
           className="reviews__submit form__submit button"
           type="submit"
           disabled
-          ref={submitBtn}
+          ref={submitBtnRef}
         >
                     Submit
         </button>

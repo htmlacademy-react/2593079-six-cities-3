@@ -1,7 +1,7 @@
 import { MouseEventHandler } from 'react';
 import { useAppSelector } from '../../hooks/store';
 import { getAuthStatus } from '../../store/auth/selectors';
-import { AuthorizationStatus, RoutePath } from '../../const';
+import { AuthorizationStatus, favoriteButtonSizes, RoutePath } from '../../const';
 import { useNavigate } from 'react-router-dom';
 
 type FavoriteButtonProps = {
@@ -23,7 +23,7 @@ const getButtonClass = (isFavorite: boolean | undefined, isBigButton: boolean | 
   }
 };
 
-const getSizes = (isBigButton: boolean) => isBigButton ? {width: 31, height: 33} : {width: 18, height: 19};
+const getSizes = (isBigButton: boolean) => isBigButton ? favoriteButtonSizes.big : favoriteButtonSizes.small;
 
 export default function FavoriteButton({isFavorite, handleClick, isBigButton}: FavoriteButtonProps) {
   const authStatus = useAppSelector(getAuthStatus);

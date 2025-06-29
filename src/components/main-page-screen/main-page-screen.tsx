@@ -10,6 +10,7 @@ import { Offer } from '../../types';
 import Spinner from '../spinner/spinner';
 import { getActiveCity } from '../../store/app/selectors';
 import { getOffersStatus } from '../../store/data/selectors';
+import MainEmpty from '../main-empty/main-empty';
 
 type MainPageScreenProps = {
   offers: Offer[];
@@ -31,6 +32,10 @@ export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Eleme
 
   if(offersStatus === RequestStatus.Pending) {
     return <Spinner/>;
+  }
+
+  if(!filteredOffers.length) {
+    return <MainEmpty/>;
   }
 
   return (

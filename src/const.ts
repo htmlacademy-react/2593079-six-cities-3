@@ -43,6 +43,13 @@ const URL_MARKER_CURRENT =
 
 const MAX_NEARBY_PLACES_COUNT = 3;
 
+const DEFAULT_RATING = 4;
+
+const favoriteButtonSizes = {
+  big: {width: 31, height: 33},
+  small:  {width: 18, height: 19}
+};
+
 const Cities: string[] = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 const loginData: LoginData = {
@@ -66,4 +73,4 @@ enum NameSpace {
 }
 
 
-export {AuthorizationStatus, RoutePath, Cities, URL_MARKER_DEFAULT, MAX_NEARBY_PLACES_COUNT, URL_MARKER_CURRENT, OptionsTypes, SortFunctions, RouteAPI, loginData, NameSpace};
+export {AuthorizationStatus, RoutePath, Cities, URL_MARKER_DEFAULT, MAX_NEARBY_PLACES_COUNT, URL_MARKER_CURRENT, OptionsTypes, SortFunctions, RouteAPI, loginData, NameSpace, DEFAULT_RATING, favoriteButtonSizes};

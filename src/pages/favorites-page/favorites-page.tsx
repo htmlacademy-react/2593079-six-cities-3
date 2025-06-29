@@ -5,6 +5,7 @@ import { } from '../../store/data/selectors';
 import { getFavorites, getFavoritesStatus } from '../../store/favorites/selectors';
 import { fetchFavorites } from '../../store/api-action';
 import { RequestStatus } from '../../const';
+import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
 
 
 export default function FavoritesPage(): JSX.Element {
@@ -25,6 +26,10 @@ export default function FavoritesPage(): JSX.Element {
       dispatch(fetchFavorites);
     }
   });
+
+  if(!favoritedOffers.length) {
+    return <FavoritesEmpty/>;
+  }
 
   return (
     <main className="page__main page__main--favorites">
