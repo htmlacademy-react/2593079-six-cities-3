@@ -18,7 +18,7 @@ export default function Layout(): JSX.Element {
 
 
   useEffect(() => {
-    if(favoritesStatus === RequestStatus.Idle) {
+    if(favoritesStatus === RequestStatus.Idle && AuthorizationStatus.Auth) {
       dispatch(fetchFavorites());
     }
   });

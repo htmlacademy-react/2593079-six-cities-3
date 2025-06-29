@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types';
-import { MouseEventHandler, useState } from 'react';
+import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/store';
 import { addFavoriteRequest, deleteFavoriteRequest } from '../../store/api-action';
+import FavoriteButton from '../favorite-button/favorite-button';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -28,8 +29,7 @@ export default function PlaceCard({offer, isForFavPage, onChange}: PlaceCardProp
     }
   };
 
-  const handleFavoriteClick:MouseEventHandler = (e) => {
-    e.preventDefault();
+  const handleFavoriteClick = () => {
     if(isFavorite) {
       dispatch(deleteFavoriteRequest(offer))
         .unwrap()
@@ -59,12 +59,7 @@ export default function PlaceCard({offer, isForFavPage, onChange}: PlaceCardProp
             <b className="place-card__price-value">&euro;{offer.price} </b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`${isFavorite ? 'place-card__bookmark-button--active' : ''} place-card__bookmark-button button`} type="button" onClick={handleFavoriteClick}>
-            <svg className= "place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"/>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <FavoriteButton handleClick={handleFavoriteClick} isFavorite={isFavorite} isBigButton={false}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

@@ -1,7 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Offer } from '../../types';
 import { RequestStatus } from '../../const';
 import { fetchOffersAction } from '../api-action';
+import { addFavorite, deleteFavorite } from '../favorites/favorites';
 
 
 type DataState = {
@@ -32,6 +33,12 @@ const dataSlice = createSlice({
       state.status = RequestStatus.Failed;
     }).addCase(fetchOffersAction.pending, (state) => {
       state.status = RequestStatus.Pending;
+    }).addCase(addFavorite, (state, action: PayloadAction<Offer>) => {
+      const index = state.offers.findIndex((offer) => offer.id === action.payload.id);
+      state.offers[index].isPremium = true;
+    }).addCase(deleteFavorite, (state, action: PayloadAction<Offer>) => {
+      const index = state.offers.findIndex((offer) => offer.id === action.payload.id);
+      state.offers[index].isPremium = false;
     });
   },
 });

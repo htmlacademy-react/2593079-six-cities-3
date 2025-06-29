@@ -28,6 +28,7 @@ export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Eleme
   }
   const activeCityData = filteredOffers.length ? filteredOffers[0].city : null;
 
+
   if(offersStatus === RequestStatus.Pending) {
     return <Spinner/>;
   }

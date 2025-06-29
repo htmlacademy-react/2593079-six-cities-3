@@ -1,12 +1,32 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types';
+import { useAppDispatch } from '../../hooks/store';
+import { addFavoriteRequest, deleteFavoriteRequest, fetchNearbyOffers } from '../../store/api-action';
+import { useState } from 'react';
+import FavoriteButton from '../favorite-button/favorite-button';
 
 type PlaceCardProps = {
   offer: Offer;
 }
 
 export default function NearOfferCard({offer}: PlaceCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const [isFavorite, setFavorite] = useState<boolean>(offer.isFavorite);
 
+  const handleFavoriteClick = () => {
+
+    if(isFavorite) {
+      dispatch(deleteFavoriteRequest(offer))
+        .unwrap()
+        .then(() => setFavorite(false));
+    } else {
+      dispatch(addFavoriteRequest(offer))
+        .unwrap()
+        .then(() => setFavorite(true));
+    }
+
+    dispatch(fetchNearbyOffers(offer.id));
+  };
   return (
 
     <article className="near-places__card place-card">
@@ -27,12 +47,7 @@ export default function NearOfferCard({offer}: PlaceCardProps): JSX.Element {
             <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={`${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} place-card__bookmark-button button`} type="button">
-            <svg className= "place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"/>
-            </svg>
-            <span className="visually-hidden">In bookmarks</span>
-          </button>
+          <FavoriteButton isFavorite={isFavorite} handleClick={handleFavoriteClick}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
