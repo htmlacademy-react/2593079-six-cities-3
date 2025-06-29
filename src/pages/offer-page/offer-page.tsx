@@ -14,8 +14,6 @@ import Spinner from '../../components/spinner/spinner';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { toCapitalize } from '../../utils';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
-import { Offer } from '../../types';
-
 
 export default function OfferPage(): JSX.Element {
 
@@ -49,11 +47,7 @@ export default function OfferPage(): JSX.Element {
       dispatch(fetchOffer(id))
         .unwrap()
         .then(() => {
-          console.log(offer, offer?.isFavorite);
-
           if(offer) {
-            console.log('offer!!!');
-
             setIsFavorite(offer.isFavorite);
           }
         });

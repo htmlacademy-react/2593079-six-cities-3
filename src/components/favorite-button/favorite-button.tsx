@@ -16,7 +16,6 @@ const getButtonClass = (isFavorite: boolean | undefined, isBigButton: boolean | 
   } else if(!isFavorite && !isBigButton) {
     return 'place-card__bookmark-button  button';
   } else if(isFavorite && isBigButton) {
-    console.log('big!!!');
 
     return 'offer__bookmark-button offer__bookmark-button--active place-card__bookmark-button--active button';
   } else {
