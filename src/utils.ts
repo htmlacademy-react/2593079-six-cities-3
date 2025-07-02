@@ -1,5 +1,9 @@
 import dayjs from 'dayjs';
-import { Offer } from './types';
+import { Offer, Review } from './types';
+import { RefObject } from 'react';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+
+dayjs.extend(isSameOrAfter);
 
 
 const filterByCity = (offers: Offer[], cityName: string) => offers.filter((currOffer) => currOffer.city.name === cityName);
@@ -13,4 +17,16 @@ const toCapitalize = (text: string) => `${text[0].toUpperCase()}${text.slice(1)}
 
 const getRandomElement = <T>(array: T[]): T | undefined =>array[Math.floor(array.length * Math.random())];
 
-export {filterByCity, parseReviewDate, parseDateTime, checkLoginInput, checkPasswordInput, toCapitalize, getRandomElement};
+const setBtn = (btnRef: RefObject<HTMLButtonElement> | null, type: 'on' | 'off') => {
+  if(btnRef) {
+    if(type === 'off') {
+      btnRef.current?.setAttribute('disabled', 'true');
+    } else if(type === 'on') {
+      btnRef.current?.removeAttribute('disabled');
+    }
+  }
+};
+
+const compareComments = (a: Review, b: Review) => dayjs(b.date).isSameOrAfter(dayjs(a.date)) ? 1 : -1;
+
+export {filterByCity, parseReviewDate, parseDateTime, checkLoginInput, checkPasswordInput, toCapitalize, getRandomElement, setBtn, compareComments};

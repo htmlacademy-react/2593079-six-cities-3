@@ -28,6 +28,10 @@ const favoritesSlice = createSlice({
     addFavorite(state, action: PayloadAction<Offer>) {
       state.favorites.push(action.payload);
     },
+    resetFavorites(state) {
+      state.favorites = [];
+      state.status = RequestStatus.Idle;
+    }
 
   },
   extraReducers: (builder) => {
@@ -42,5 +46,5 @@ const favoritesSlice = createSlice({
 });
 
 
-export const {setFavorites, deleteFavorite,addFavorite} = favoritesSlice.actions;
+export const {setFavorites, deleteFavorite,addFavorite, resetFavorites} = favoritesSlice.actions;
 export default favoritesSlice.reducer;

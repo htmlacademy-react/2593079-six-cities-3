@@ -34,7 +34,7 @@ const offerSlice = createSlice({
       state.status = action.payload;
     },
     addComment(state, action: {payload: Review}) {
-      state.commentData.push(action.payload);
+      state.commentData.unshift(action.payload);
     },
     clearOfferData(state) {
       state.status = RequestStatus.Idle;
@@ -49,7 +49,7 @@ const offerSlice = createSlice({
     }).addCase(fetchOffer.fulfilled, (state) => {
       state.status = RequestStatus.Loaded;
     }).addCase(fetchOffer.rejected, (state) => {
-      state.status = RequestStatus.Failed;
+      state.offerData = null;
     });
   }
 

@@ -2,6 +2,7 @@ import { Location, Navigate, useLocation } from 'react-router-dom';
 import { AuthorizationStatus, RoutePath } from '../../const';
 import { useAppSelector } from '../../hooks/store';
 import { getAuthStatus } from '../../store/auth/selectors';
+import Spinner from '../spinner/spinner';
 
 type PrivateRouteProps = {
   children: JSX.Element;
@@ -15,14 +16,18 @@ type FromState = {
 export default function PrivateRoute({children, onlyUnAuth}: PrivateRouteProps): JSX.Element {
 
   const location = useLocation() as Location<FromState> ;
-  const isAuthorized = useAppSelector(getAuthStatus) === AuthorizationStatus.Auth;
+  const authStatus = useAppSelector(getAuthStatus);
 
-  if(onlyUnAuth && isAuthorized) {
+  if (authStatus === AuthorizationStatus.Unknown) {
+    return <Spinner/>;
+  }
+
+  if(onlyUnAuth && authStatus === AuthorizationStatus.Auth) {
     const from = location.state?.from || RoutePath.Main;
     return <Navigate to={from} state={{from: from}}/>;
   }
 
-  if(!onlyUnAuth && !isAuthorized) {
+  if(!onlyUnAuth && authStatus === AuthorizationStatus.NoAuth) {
     return <Navigate to={RoutePath.Login}/>;
   }
 

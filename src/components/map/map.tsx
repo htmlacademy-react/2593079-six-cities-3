@@ -3,7 +3,7 @@ import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 import {Icon, layerGroup, Marker} from 'leaflet';
 import useMap from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
-import { Offer } from '../../types';
+import { Offer, OfferData } from '../../types';
 
 export type City = {
   name: string;
@@ -15,7 +15,7 @@ export type City = {
 };
 
 type mapProps = {
-  points: Offer[] | undefined;
+  points: (Offer | OfferData)[] | undefined;
   activePoint?: string | null;
   city: City | null;
 }

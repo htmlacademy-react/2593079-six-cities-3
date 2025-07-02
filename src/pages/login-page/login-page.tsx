@@ -1,8 +1,10 @@
-import { useRef, FormEvent } from 'react';
+import { useRef, FormEvent, useEffect } from 'react';
 import { checkLoginInput, checkPasswordInput } from '../../utils';
 import { useAppDispatch } from '../../hooks/store';
 import { loginAction } from '../../store/api-action';
 import RandomCityLink from '../../components/random-link/random-city-link';
+import { Link } from 'react-router-dom';
+import { RoutePath } from '../../const';
 
 
 export default function LoginPage(): JSX.Element {
@@ -26,6 +28,10 @@ export default function LoginPage(): JSX.Element {
     }
   };
 
+  useEffect(() => {
+    formRef.current?.reset();
+  });
+
   return (
     <div className="page page--gray page--login">
       <header className="header">
@@ -35,6 +41,9 @@ export default function LoginPage(): JSX.Element {
               <a className="header__logo-link" href="/">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </a>
+            </div>
+            <div className="header__nav-item user">
+              <Link to={RoutePath.Login} className="header__nav-link header__nav-link--profile"><span className="header__login" style={{zIndex: 10000, opacity: 0}}>Sign in</span></Link>
             </div>
           </div>
         </div>

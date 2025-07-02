@@ -39,6 +39,7 @@ const AuthSlice = createSlice({
       [state.name, state.isPro, state.avatarUrl, state.email, state.authorizationStatus] =
       ['', false, '', '', AuthorizationStatus.NoAuth];
 
+
       dropToken();
     }
   },

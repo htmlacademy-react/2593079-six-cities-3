@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types';
 import { useAppDispatch } from '../../hooks/store';
-import { addFavoriteRequest, deleteFavoriteRequest, fetchNearbyOffers } from '../../store/api-action';
-import { useState } from 'react';
+import { addFavoriteRequest, deleteFavoriteRequest } from '../../store/api-action';
+import { useRef, useState } from 'react';
 import FavoriteButton from '../favorite-button/favorite-button';
+import { ratingRatio } from '../../const';
+import { setBtn, toCapitalize } from '../../utils';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -11,21 +13,23 @@ type PlaceCardProps = {
 
 export default function NearOfferCard({offer}: PlaceCardProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const [isFavorite, setFavorite] = useState<boolean>(offer.isFavorite);
+  const [isFavorite, setIsFavorite] = useState<boolean>(offer.isFavorite);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   const handleFavoriteClick = () => {
+    setBtn(btnRef, 'off');
 
     if(isFavorite) {
       dispatch(deleteFavoriteRequest(offer))
         .unwrap()
-        .then(() => setFavorite(false));
+        .then(() => setIsFavorite(false))
+        .finally(() => setBtn(btnRef, 'on'));
     } else {
       dispatch(addFavoriteRequest(offer))
         .unwrap()
-        .then(() => setFavorite(true));
+        .then(() => setIsFavorite(true))
+        .finally(() => setBtn(btnRef, 'on'));
     }
-
-    dispatch(fetchNearbyOffers(offer.id));
   };
   return (
 
@@ -47,11 +51,11 @@ export default function NearOfferCard({offer}: PlaceCardProps): JSX.Element {
             <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <FavoriteButton isFavorite={isFavorite} handleClick={handleFavoriteClick}/>
+          <FavoriteButton isFavorite={isFavorite} handleClick={handleFavoriteClick} btnRef={btnRef}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${offer.rating * 20}%` }} />
+            <span style={{ width: `${offer.rating * ratingRatio}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -59,7 +63,7 @@ export default function NearOfferCard({offer}: PlaceCardProps): JSX.Element {
           <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
 
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{toCapitalize(offer.type)}</p>
 
       </div>
     </article>

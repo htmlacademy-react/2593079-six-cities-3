@@ -35,10 +35,16 @@ const dataSlice = createSlice({
       state.status = RequestStatus.Pending;
     }).addCase(addFavorite, (state, action: PayloadAction<Offer>) => {
       const index = state.offers.findIndex((offer) => offer.id === action.payload.id);
-      state.offers[index].isPremium = true;
+      if(index === -1) {
+        return;
+      }
+      state.offers[index].isFavorite = true;
     }).addCase(deleteFavorite, (state, action: PayloadAction<Offer>) => {
       const index = state.offers.findIndex((offer) => offer.id === action.payload.id);
-      state.offers[index].isPremium = false;
+      if(index === -1) {
+        return;
+      }
+      state.offers[index].isFavorite = false;
     });
   },
 });

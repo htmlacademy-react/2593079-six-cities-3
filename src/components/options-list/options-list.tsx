@@ -6,6 +6,14 @@ type OptionsListProps = {
   currentOption: OptionsTypes;
 }
 
+const OptionsValue = {
+  [OptionsTypes.POP]: 'Popular',
+  [OptionsTypes.ASC]: 'Price: low to high',
+  [OptionsTypes.DSC]: 'Price: high to low',
+  [OptionsTypes.TOP]: 'Top rated first',
+
+} as const;
+
 
 export default function OptionsList({currentOption, changeOption}: OptionsListProps): JSX.Element {
 
@@ -41,22 +49,23 @@ export default function OptionsList({currentOption, changeOption}: OptionsListPr
 
       }} className="places__sorting-type" tabIndex={0}
       >
-                   Popular
+        {OptionsValue[currentOption]}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"/>
         </svg>
       </span>
-      {isOptionsShown &&
-      <ul className="places__options places__options--custom" style={{display: 'block'}}>
-        <li className={`places__option ${currentOption === OptionsTypes.POP ? 'places__option--active' : ''}`} onClick={onClick} data-option={OptionsTypes.POP} tabIndex={0}>Popular
+
+      <ul className="places__options places__options--custom" style={{display: isOptionsShown ? 'block' : 'none'}}>
+        <li className={`places__option ${currentOption === OptionsTypes.POP ? 'places__option--active' : ''}`} onClick={onClick} data-option={OptionsTypes.POP} tabIndex={0}>{OptionsValue[OptionsTypes.POP]}
         </li>
-        <li className={`places__option ${currentOption === OptionsTypes.ASC ? 'places__option--active' : ''}`} onClick={onClick} data-option={OptionsTypes.ASC} tabIndex={0}>Price: low to high
+        <li className={`places__option ${currentOption === OptionsTypes.ASC ? 'places__option--active' : ''}`} onClick={onClick} data-option={OptionsTypes.ASC} tabIndex={0}>{OptionsValue[OptionsTypes.ASC]}
         </li>
-        <li className={`places__option ${currentOption === OptionsTypes.DSC ? 'places__option--active' : ''}`} onClick={onClick} data-option={OptionsTypes.DSC} tabIndex={0}>Price: high to low
+        <li className={`places__option ${currentOption === OptionsTypes.DSC ? 'places__option--active' : ''}`} onClick={onClick} data-option={OptionsTypes.DSC} tabIndex={0}>{OptionsValue[OptionsTypes.DSC]}
         </li>
-        <li className={`places__option ${currentOption === OptionsTypes.TOP ? 'places__option--active' : ''}`} onClick={onClick} data-option={OptionsTypes.TOP} tabIndex={0}>Top rated first
+        <li className={`places__option ${currentOption === OptionsTypes.TOP ? 'places__option--active' : ''}`} onClick={onClick} data-option={OptionsTypes.TOP} tabIndex={0}>{OptionsValue[OptionsTypes.TOP]}
         </li>
-      </ul>}
+      </ul>
+
 
     </form>
   );

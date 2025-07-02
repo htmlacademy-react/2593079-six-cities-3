@@ -86,7 +86,6 @@ export const fetchNearbyOffers = createAsyncThunk<void, string, {
 
   const {data} = await api.get<Offer[]>(`${RouteAPI.GET_OFFER}/${id}/nearby`);
   dispatch(setNearbyData(data));
-
 });
 
 export const postComment = createAsyncThunk<void, {id: string; body: PostCommentData} , {

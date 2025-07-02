@@ -4,12 +4,15 @@ import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { } from '../../store/data/selectors';
 import { getFavorites, getFavoritesStatus } from '../../store/favorites/selectors';
 import { fetchFavorites } from '../../store/api-action';
-import { RequestStatus } from '../../const';
+import { AuthorizationStatus, RequestStatus } from '../../const';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
+import { useOutletContext } from 'react-router-dom';
+import { getAuthStatus } from '../../store/auth/selectors';
 
 
 export default function FavoritesPage(): JSX.Element {
   const favoritedOffers = useAppSelector(getFavorites);
+  const authorizationStatus = useAppSelector(getAuthStatus);
   const uniquePlaces = favoritedOffers.reduce<string[]>((uniqueCities, offer) => {
     if(uniqueCities.indexOf(offer.city.name) === -1) {
       uniqueCities.push(offer.city.name);
@@ -20,12 +23,18 @@ export default function FavoritesPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const favoritesStatus = useAppSelector(getFavoritesStatus);
 
+  const { setPageClass } = useOutletContext<{ setPageClass: (cls: string) => void }>();
+  useEffect(() => {
+    setPageClass('');
+
+  }, [setPageClass]);
+
 
   useEffect(() => {
-    if(favoritesStatus === RequestStatus.Idle) {
+    if(favoritesStatus === RequestStatus.Idle && authorizationStatus === AuthorizationStatus.Auth) {
       dispatch(fetchFavorites);
     }
-  });
+  }, [favoritesStatus, dispatch, authorizationStatus]);
 
   if(!favoritedOffers.length) {
     return <FavoritesEmpty/>;

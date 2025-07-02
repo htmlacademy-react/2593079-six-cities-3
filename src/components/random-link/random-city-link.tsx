@@ -5,11 +5,12 @@ import { MouseEventHandler } from 'react';
 import { useAppDispatch } from '../../hooks/store';
 import { changeCity } from '../../store/app/app';
 
-const currentCity = getRandomElement(Cities);
 
 export default function RandomCityLink(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const currentCity = getRandomElement(Cities);
+
 
   const onRandomLinkClick:MouseEventHandler = (e) => {
     e.preventDefault();

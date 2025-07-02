@@ -43,7 +43,7 @@ const URL_MARKER_CURRENT =
 
 const MAX_NEARBY_PLACES_COUNT = 3;
 
-const DEFAULT_RATING = 4;
+const DEFAULT_RATING = 0;
 
 const favoriteButtonSizes = {
   big: {width: 31, height: 33},
@@ -64,6 +64,11 @@ export const enum RequestStatus {
   Failed
 }
 
+const ratingRatio = 19.5;
+
+const MAX_COMMENTS_COUNT = 10;
+const MAX_OFFER_IMG_COUNT = 6;
+
 enum NameSpace {
   Data = 'data',
   App = 'app',
@@ -73,4 +78,4 @@ enum NameSpace {
 }
 
 
-export {AuthorizationStatus, RoutePath, Cities, URL_MARKER_DEFAULT, MAX_NEARBY_PLACES_COUNT, URL_MARKER_CURRENT, OptionsTypes, SortFunctions, RouteAPI, loginData, NameSpace, DEFAULT_RATING, favoriteButtonSizes};
+export {AuthorizationStatus, RoutePath, Cities, URL_MARKER_DEFAULT, MAX_NEARBY_PLACES_COUNT, URL_MARKER_CURRENT, OptionsTypes, SortFunctions, RouteAPI, loginData, NameSpace, DEFAULT_RATING, favoriteButtonSizes, ratingRatio, MAX_COMMENTS_COUNT, MAX_OFFER_IMG_COUNT};

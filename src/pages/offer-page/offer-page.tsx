@@ -1,19 +1,21 @@
-import { useParams } from 'react-router-dom';
+import { useOutletContext, useParams } from 'react-router-dom';
 import CommentForm from '../../components/comment-form/comment-form';
 import {MemoizedMap} from '../../components/map/map';
 import {MemoizedOffersList} from '../../components/offers-list/offers-list';
 import ReviewsList from '../../components/reviews-list/reviews-list';
-import { AuthorizationStatus, MAX_NEARBY_PLACES_COUNT, RequestStatus } from '../../const';
+import { AuthorizationStatus, MAX_NEARBY_PLACES_COUNT, MAX_OFFER_IMG_COUNT, RequestStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { addFavoriteRequest, deleteFavoriteRequest, fetchComments, fetchNearbyOffers, fetchOffer } from '../../store/api-action';
 import { getAuthStatus } from '../../store/auth/selectors';
 import { getNearby, getOffer, getOfferStatus } from '../../store/offer/selectors';
-import { useEffect, useMemo, useState } from 'react';
-import { clearOfferData } from '../../store/offer/offer';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { clearOfferData, setStatus } from '../../store/offer/offer';
 import Spinner from '../../components/spinner/spinner';
 import NotFoundPage from '../not-found-page/not-found-page';
-import { toCapitalize } from '../../utils';
+import { setBtn, toCapitalize } from '../../utils';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
+
+const RATIO_COEFF = 19;
 
 export default function OfferPage(): JSX.Element {
 
@@ -25,6 +27,9 @@ export default function OfferPage(): JSX.Element {
   const offerStatus = useAppSelector(getOfferStatus);
   const nearbyPlaces = useAppSelector(getNearby);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const { setPageClass } = useOutletContext<{ setPageClass: (cls: string) => void }>();
+
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   const limitedNearbyPlacesData = useMemo(
     () => nearbyPlaces.slice(0, MAX_NEARBY_PLACES_COUNT),
@@ -36,43 +41,62 @@ export default function OfferPage(): JSX.Element {
     [nearbyPlaces]
   );
 
-  useEffect(()=> {
-    if(offerStatus === RequestStatus.Idle) {
-      Promise.all([dispatch(fetchNearbyOffers(id)), dispatch(fetchComments(id))]);
-    }
-  },[id, offerStatus, dispatch]);
+  useEffect(() => {
+    setPageClass('');
+
+  }, [setPageClass]);
 
   useEffect(() => {
-    if(offerStatus === RequestStatus.Idle) {
-      dispatch(fetchOffer(id))
-        .unwrap()
-        .then(() => {
-          if(offer) {
-            setIsFavorite(offer.isFavorite);
-          }
-        });
-    }
+    dispatch(fetchOffer(id))
+      .unwrap()
+      .then(() => {
+        Promise.all([
+          dispatch(fetchNearbyOffers(id)),
+          dispatch(fetchComments(id))
+        ]).catch(() => {
+          dispatch(setStatus(RequestStatus.Failed));
 
-  }, [offer, dispatch, id, offerStatus]);
+        });
+      })
+      .catch(() => {
+        dispatch(setStatus(RequestStatus.Failed));
+      });
+
+    return () => {
+      dispatch(clearOfferData());
+    };
+  }, [id, dispatch]);
+
+  useEffect(() => {
+    if(offer) {
+      setIsFavorite(offer.isFavorite);
+    }
+  }, [setIsFavorite, offer]);
 
   useEffect(() => {
     dispatch(clearOfferData());
   }, [id, dispatch]);
 
+
   const handleFavoriteClick = () => {
     if(offer) {
+      setBtn(btnRef, 'off');
+
       if(isFavorite) {
         dispatch(deleteFavoriteRequest(offer))
           .unwrap()
-          .then(() => setIsFavorite(false));
+          .then(() => setIsFavorite(false))
+          .finally(() => setBtn(btnRef, 'on'));
       } else {
         dispatch(addFavoriteRequest(offer))
           .unwrap()
-          .then(() => setIsFavorite(true));
+          .then(() => setIsFavorite(true))
+          .finally(() => setBtn(btnRef, 'on'));
       }
     }
 
   };
+
 
   if(offerStatus === RequestStatus.Pending || offerStatus === RequestStatus.Idle) {
     return <Spinner/>;
@@ -87,7 +111,7 @@ export default function OfferPage(): JSX.Element {
       <section className="offer">
         <div className="offer__gallery-container container">
           <div className="offer__gallery">
-            {offer.images.map((img, index) => {
+            {offer.images.slice(0, MAX_OFFER_IMG_COUNT).map((img, index) => {
               const key = `${offer.id}-${index}`;
               return (
                 <div className="offer__image-wrapper" key={key}>
@@ -113,11 +137,11 @@ export default function OfferPage(): JSX.Element {
               <h1 className="offer__name">
                 {offer.title}
               </h1>
-              <FavoriteButton isFavorite={isFavorite} handleClick={handleFavoriteClick} isBigButton/>
+              <FavoriteButton isFavorite={isFavorite} handleClick={handleFavoriteClick} isBigButton btnRef={btnRef}/>
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
-                <span style={{ width: `${20 * (offer.rating ?? 0) }%` }} />
+                <span style={{ width: `${RATIO_COEFF * (offer.rating ?? 0) }%` }} />
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="offer__rating-value rating__value">{offer.rating}</span>
@@ -174,7 +198,7 @@ export default function OfferPage(): JSX.Element {
           </div>
         </div>
         <section className="container map">
-          <MemoizedMap points={limitedNearbyPlacesData} city={city} />
+          <MemoizedMap points={[...limitedNearbyPlacesData, offer]} city={city} activePoint={offer.id}/>
         </section>
 
       </section>

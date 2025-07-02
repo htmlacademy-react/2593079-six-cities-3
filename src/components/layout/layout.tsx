@@ -6,6 +6,8 @@ import { deleteAuthData } from '../../store/auth/auth';
 import { MouseEventHandler, useEffect } from 'react';
 import { getFavorites, getFavoritesStatus } from '../../store/favorites/selectors';
 import { fetchFavorites } from '../../store/api-action';
+import { resetFavorites } from '../../store/favorites/favorites';
+import { usePageClass } from '../../hooks/use-page-class';
 
 
 export default function Layout(): JSX.Element {
@@ -15,21 +17,23 @@ export default function Layout(): JSX.Element {
   const dispatch = useAppDispatch();
   const favorites = useAppSelector(getFavorites);
   const favoritesStatus = useAppSelector(getFavoritesStatus);
+  const {pageClass, setPageClass} = usePageClass();
 
 
   useEffect(() => {
-    if(favoritesStatus === RequestStatus.Idle && AuthorizationStatus.Auth) {
+    if(favoritesStatus === RequestStatus.Idle && isAuthorized) {
       dispatch(fetchFavorites());
     }
-  });
+  }, [favoritesStatus, dispatch, isAuthorized]);
 
 
   const onSignOutClick: MouseEventHandler<HTMLAnchorElement> = () => {
     dispatch(deleteAuthData());
+    dispatch(resetFavorites());
   };
 
   return (
-    <div className="page">
+    <div className={`page ${pageClass}`.trim()}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -48,28 +52,27 @@ export default function Layout(): JSX.Element {
               <ul className="header__nav-list">
 
                 <li className="header__nav-item user">
-                  <Link to={RoutePath.Favorites}
-                    className="header__nav-link header__nav-link--profile"
-                  >
-                    <div className="header__avatar-wrapper user__avatar-wrapper"
-                      style={{
-                        backgroundImage: `url(${isAuthorized ? avatarUrl : '../img/avatar.svg'})`
-                      }}
-                    />
-                    {isAuthorized ?
-                      <>
-                        <span className="header__user-name user__name">
-                          {email}
-                        </span>
-                        <span className="header__favorite-count">{favorites.length}</span>
-                      </>
-                      : <span className="header__login">Sign in</span>}
+                  {isAuthorized ?
+                    <Link to={RoutePath.Favorites}
+                      className="header__nav-link header__nav-link--profile"
+                    >
+                      <div className="header__avatar-wrapper user__avatar-wrapper"
+                        style={{
+                          backgroundImage: `url(${isAuthorized ? avatarUrl : '../img/avatar.svg'})`
+                        }}
+                      />
 
-                  </Link>
+                      <span className="header__user-name user__name">
+                        {email}
+                      </span>
+                      <span className="header__favorite-count">{favorites.length}</span>
+                    </Link> : <Link to={RoutePath.Login} className="header__nav-link header__nav-link--profile"><span className="header__login">Sign in</span></Link>}
+
+
                 </li>
                 {isAuthorized &&
                 <li className="header__nav-item">
-                  <Link className="header__nav-link" to="/login" onClick={onSignOutClick}>
+                  <Link className="header__nav-link " to={RoutePath.Login} onClick={onSignOutClick}>
                     <span className="header__signout">Sign out</span>
                   </Link>
                 </li>}
@@ -79,7 +82,7 @@ export default function Layout(): JSX.Element {
           </div>
         </div>
       </header>
-      <Outlet />
+      <Outlet context={{setPageClass}}/>
     </div>
   );
 }
