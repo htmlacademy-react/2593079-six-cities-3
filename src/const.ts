@@ -64,7 +64,7 @@ export const enum RequestStatus {
   Failed
 }
 
-const ratingRatio = 19.5;
+const RATING_COEFF = 20;
 
 const MAX_COMMENTS_COUNT = 10;
 const MAX_OFFER_IMG_COUNT = 6;
@@ -78,4 +78,4 @@ enum NameSpace {
 }
 
 
-export {AuthorizationStatus, RoutePath, Cities, URL_MARKER_DEFAULT, MAX_NEARBY_PLACES_COUNT, URL_MARKER_CURRENT, OptionsTypes, SortFunctions, RouteAPI, loginData, NameSpace, DEFAULT_RATING, favoriteButtonSizes, ratingRatio, MAX_COMMENTS_COUNT, MAX_OFFER_IMG_COUNT};
+export {AuthorizationStatus, RoutePath, Cities, URL_MARKER_DEFAULT, MAX_NEARBY_PLACES_COUNT, URL_MARKER_CURRENT, OptionsTypes, SortFunctions, RouteAPI, loginData, NameSpace, DEFAULT_RATING, favoriteButtonSizes, RATING_COEFF, MAX_COMMENTS_COUNT, MAX_OFFER_IMG_COUNT};

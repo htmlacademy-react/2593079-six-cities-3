@@ -18,7 +18,7 @@ export default function FavoritesPage(): JSX.Element {
       uniqueCities.push(offer.city.name);
     }
     return uniqueCities;
-  } , []).sort();
+  } , []);
 
   const dispatch = useAppDispatch();
   const favoritesStatus = useAppSelector(getFavoritesStatus);
@@ -26,7 +26,6 @@ export default function FavoritesPage(): JSX.Element {
   const { setPageClass } = useOutletContext<{ setPageClass: (cls: string) => void }>();
   useEffect(() => {
     setPageClass('');
-
   }, [setPageClass]);
 
 
