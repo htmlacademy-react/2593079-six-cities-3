@@ -5,7 +5,7 @@ import { useAppDispatch } from '../../hooks/store';
 import { addFavoriteRequest, deleteFavoriteRequest } from '../../store/api-action';
 import FavoriteButton from '../favorite-button/favorite-button';
 import { setBtn, toCapitalize } from '../../utils';
-import { ratingRatio } from '../../const';
+import { RATING_COEFF } from '../../const';
 
 type PlaceCardProps = {
   offer: Offer;
@@ -73,7 +73,7 @@ export default function PlaceCard({offer, isForFavPage, onChange}: PlaceCardProp
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${offer.rating * ratingRatio}%`}}/>
+            <span style={{ width: `${Math.round(offer.rating) * RATING_COEFF}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

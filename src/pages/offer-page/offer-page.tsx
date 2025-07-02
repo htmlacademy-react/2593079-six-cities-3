@@ -3,7 +3,7 @@ import CommentForm from '../../components/comment-form/comment-form';
 import {MemoizedMap} from '../../components/map/map';
 import {MemoizedOffersList} from '../../components/offers-list/offers-list';
 import ReviewsList from '../../components/reviews-list/reviews-list';
-import { AuthorizationStatus, MAX_NEARBY_PLACES_COUNT, MAX_OFFER_IMG_COUNT, RequestStatus } from '../../const';
+import { AuthorizationStatus, MAX_NEARBY_PLACES_COUNT, MAX_OFFER_IMG_COUNT, RATING_COEFF, RequestStatus } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { addFavoriteRequest, deleteFavoriteRequest, fetchComments, fetchNearbyOffers, fetchOffer } from '../../store/api-action';
 import { getAuthStatus } from '../../store/auth/selectors';
@@ -14,8 +14,6 @@ import Spinner from '../../components/spinner/spinner';
 import NotFoundPage from '../not-found-page/not-found-page';
 import { setBtn, toCapitalize } from '../../utils';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
-
-const RATIO_COEFF = 19;
 
 export default function OfferPage(): JSX.Element {
 
@@ -141,7 +139,7 @@ export default function OfferPage(): JSX.Element {
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">
-                <span style={{ width: `${RATIO_COEFF * (offer.rating ?? 0) }%` }} />
+                <span style={{ width: `${RATING_COEFF * Math.round(offer.rating ?? 0) }%` }} />
                 <span className="visually-hidden">Rating</span>
               </div>
               <span className="offer__rating-value rating__value">{offer.rating}</span>

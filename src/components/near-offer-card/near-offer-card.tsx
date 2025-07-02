@@ -4,7 +4,7 @@ import { useAppDispatch } from '../../hooks/store';
 import { addFavoriteRequest, deleteFavoriteRequest } from '../../store/api-action';
 import { useRef, useState } from 'react';
 import FavoriteButton from '../favorite-button/favorite-button';
-import { ratingRatio } from '../../const';
+import { RATING_COEFF } from '../../const';
 import { setBtn, toCapitalize } from '../../utils';
 
 type PlaceCardProps = {
@@ -55,7 +55,7 @@ export default function NearOfferCard({offer}: PlaceCardProps): JSX.Element {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${offer.rating * ratingRatio}%` }} />
+            <span style={{ width: `${Math.round(offer.rating) * RATING_COEFF}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
