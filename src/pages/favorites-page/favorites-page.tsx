@@ -1,20 +1,45 @@
-// import Footer from '../../components/footer/footer';
-// import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
-// import OffersList from '../../components/offers-list/offers-list';
-import OffersList from '../../components/offers-list/offers-list';
-import { useAppSelector } from '../../hooks/store';
-import { getOffers } from '../../store/data/selectors';
+import { useEffect } from 'react';
+import {MemoizedOffersList} from '../../components/offers-list/offers-list';
+import { useAppDispatch, useAppSelector } from '../../hooks/store';
+import { } from '../../store/data/selectors';
+import { getFavorites, getFavoritesStatus } from '../../store/favorites/selectors';
+import { fetchFavorites } from '../../store/api-action';
+import { AuthorizationStatus, RequestStatus } from '../../const';
+import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
+import { useOutletContext } from 'react-router-dom';
+import { getAuthStatus } from '../../store/auth/selectors';
 
 
 export default function FavoritesPage(): JSX.Element {
-  const offers = useAppSelector(getOffers);
-  const favoritedOffers = offers.filter((offer) => offer.isFavorite);
+  const favoritedOffers = useAppSelector(getFavorites);
+  const authorizationStatus = useAppSelector(getAuthStatus);
   const uniquePlaces = favoritedOffers.reduce<string[]>((uniqueCities, offer) => {
     if(uniqueCities.indexOf(offer.city.name) === -1) {
       uniqueCities.push(offer.city.name);
     }
     return uniqueCities;
   } , []).sort();
+
+  const dispatch = useAppDispatch();
+  const favoritesStatus = useAppSelector(getFavoritesStatus);
+
+  const { setPageClass } = useOutletContext<{ setPageClass: (cls: string) => void }>();
+  useEffect(() => {
+    setPageClass('');
+
+  }, [setPageClass]);
+
+
+  useEffect(() => {
+    if(favoritesStatus === RequestStatus.Idle && authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavorites);
+    }
+  }, [favoritesStatus, dispatch, authorizationStatus]);
+
+  if(!favoritedOffers.length) {
+    return <FavoritesEmpty/>;
+  }
+
   return (
     <main className="page__main page__main--favorites">
       <div className="page__favorites-container container">
@@ -33,7 +58,7 @@ export default function FavoritesPage(): JSX.Element {
                       </a>
                     </div>
                   </div>
-                  <OffersList offers={filteredOffers} isForFavPage/>
+                  <MemoizedOffersList offers={filteredOffers} isForFavPage/>
                 </li>
               );
             })}

@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const';
 import {Icon, layerGroup, Marker} from 'leaflet';
 import useMap from '../../hooks/use-map';
 import 'leaflet/dist/leaflet.css';
-import { Offer } from '../../types';
+import { Offer, OfferData } from '../../types';
 
 export type City = {
   name: string;
@@ -15,7 +15,7 @@ export type City = {
 };
 
 type mapProps = {
-  points: Offer[] | undefined;
+  points: (Offer | OfferData)[] | undefined;
   activePoint?: string | null;
   city: City | null;
 }
@@ -32,7 +32,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export default function Map({points, activePoint, city}: mapProps): JSX.Element {
+export function Map({points, activePoint, city}: mapProps): JSX.Element {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city || null);
@@ -61,3 +61,5 @@ export default function Map({points, activePoint, city}: mapProps): JSX.Element 
 
   return <div style={{height: '579px'}} ref={mapRef}></div>;
 }
+
+export const MemoizedMap = memo(Map);

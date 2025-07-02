@@ -1,3 +1,4 @@
+import { ratingRatio } from '../../const';
 import { ReviewType } from '../../mocks/reviews';
 import { parseDateTime, parseReviewDate } from '../../utils';
 
@@ -27,7 +28,7 @@ export default function Review({review}: ReviewProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${review.rating * 20}%`}}/>
+            <span style={{ width: `${review.rating * ratingRatio}px`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

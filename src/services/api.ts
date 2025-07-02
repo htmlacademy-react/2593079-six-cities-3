@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
-const SERVER_URL = 'https://15.design.htmlacademy.pro/six-cities';
+const SERVER_URL = 'https://16.design.htmlacademy.pro/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
 

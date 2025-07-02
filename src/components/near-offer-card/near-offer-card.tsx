@@ -1,12 +1,36 @@
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types';
+import { useAppDispatch } from '../../hooks/store';
+import { addFavoriteRequest, deleteFavoriteRequest } from '../../store/api-action';
+import { useRef, useState } from 'react';
+import FavoriteButton from '../favorite-button/favorite-button';
+import { ratingRatio } from '../../const';
+import { setBtn, toCapitalize } from '../../utils';
 
 type PlaceCardProps = {
   offer: Offer;
 }
 
 export default function NearOfferCard({offer}: PlaceCardProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const [isFavorite, setIsFavorite] = useState<boolean>(offer.isFavorite);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
+  const handleFavoriteClick = () => {
+    setBtn(btnRef, 'off');
+
+    if(isFavorite) {
+      dispatch(deleteFavoriteRequest(offer))
+        .unwrap()
+        .then(() => setIsFavorite(false))
+        .finally(() => setBtn(btnRef, 'on'));
+    } else {
+      dispatch(addFavoriteRequest(offer))
+        .unwrap()
+        .then(() => setIsFavorite(true))
+        .finally(() => setBtn(btnRef, 'on'));
+    }
+  };
   return (
 
     <article className="near-places__card place-card">
@@ -27,16 +51,11 @@ export default function NearOfferCard({offer}: PlaceCardProps): JSX.Element {
             <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <button className={`${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} place-card__bookmark-button button`} type="button">
-            <svg className= "place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"/>
-            </svg>
-            <span className="visually-hidden">In bookmarks</span>
-          </button>
+          <FavoriteButton isFavorite={isFavorite} handleClick={handleFavoriteClick} btnRef={btnRef}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${offer.rating * 20}%` }} />
+            <span style={{ width: `${offer.rating * ratingRatio}%` }} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -44,7 +63,7 @@ export default function NearOfferCard({offer}: PlaceCardProps): JSX.Element {
           <Link to={`/offer/${offer.id}`}>{offer.title}</Link>
 
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{toCapitalize(offer.type)}</p>
 
       </div>
     </article>
