@@ -10,7 +10,7 @@ export type DataState = {
   status: RequestStatus;
 }
 
-const initialState: DataState = {
+export const initialState: DataState = {
   offers: [],
   status: RequestStatus.Pending
 };

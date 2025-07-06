@@ -13,7 +13,7 @@ function CitiesList({activeCity}: CitiesListProps): JSX.Element {
   const dispatch = useAppDispatch();
   return (
     <section className="locations container">
-      <ul className="locations__list tabs__list">
+      <ul className="locations__list tabs__list" data-testid="cities-list">
         {cities.map((city) => (
           <li key={`${city}-1`} className="locations__item">
             <NavLink onClick={() => dispatch(changeCity(city))} className={`${city === activeCity ? 'tabs__item--active' : ''} locations__item-link tabs__item`} to="/">

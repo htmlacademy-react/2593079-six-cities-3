@@ -2,7 +2,7 @@ import { Offer, OfferData, Review } from './types';
 
 export function getMockOfferData(): OfferData {
   return ({
-    'id': '6af6f711-c28d-4121-82cd-e0b462a27f00',
+    'id': 'be280179-6f6b-4226-b440-1fa8c5f72f10',
     'title': 'Beautiful & luxurious studio at great location',
     'type': 'apartment',
     'price': 120,

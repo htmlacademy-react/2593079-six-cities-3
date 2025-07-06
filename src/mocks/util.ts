@@ -1,6 +1,12 @@
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import createAPI from '../services/api';
 import { State } from '../types/store';
+import { NameSpace } from '../const';
+import {initialState as initialAppState} from '../store/app/app';
+import {initialState as initialAuthState} from '../store/auth/auth';
+import {initialState as initialDataState} from '../store/data/data';
+import {initialState as initialFavoritesState} from '../store/favorites/favorites';
+import {initialState as initialOfferState} from '../store/offer/offer';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;
 
@@ -56,3 +62,15 @@ export const getMockReview = () => (
     'rating': 4
   }
 );
+
+export const makeFakeStore = (initialState?: Partial<State>): State => (
+  {
+    [NameSpace.App]: initialAppState,
+    [NameSpace.Auth]: initialAuthState,
+    [NameSpace.Data]: initialDataState,
+    [NameSpace.Favorites]: initialFavoritesState,
+    [NameSpace.Offer]: initialOfferState,
+    ...initialState ?? {},
+  }
+);
+

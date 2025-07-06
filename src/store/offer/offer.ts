@@ -10,7 +10,7 @@ type PageOfferData = {
   commentData: Review[];
 }
 
-const initialState: PageOfferData = {
+export const initialState: PageOfferData = {
   offerData: null,
   status: RequestStatus.Idle,
   nearbyData: [],
