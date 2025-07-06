@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import {MemoizedOffersList} from '../offers-list/offers-list';
-import { Cities, OptionsTypes, RequestStatus, SortFunctions } from '../../const';
+import { OptionsTypes, RequestStatus, SortFunctions } from '../../const';
 import { filterByCity } from '../../utils';
 import {MemoizedMap} from '../map/map';
 import { useAppSelector } from '../../hooks/store';
@@ -50,7 +50,7 @@ export default function MainPageScreen({offers}: MainPageScreenProps): JSX.Eleme
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
-        <MemoizedCitiesList cities={Cities} activeCity={activeCity}/>
+        <MemoizedCitiesList activeCity={activeCity}/>
       </div>
 
       <div className="cities">

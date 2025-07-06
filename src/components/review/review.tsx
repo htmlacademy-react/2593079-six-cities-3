@@ -1,5 +1,6 @@
 import { RATING_COEFF } from '../../const';
-import { ReviewType } from '../../mocks/reviews';
+import { Review as ReviewType } from '../../types';
+
 import { parseDateTime, parseReviewDate } from '../../utils';
 
 

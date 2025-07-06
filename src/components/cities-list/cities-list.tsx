@@ -2,13 +2,14 @@ import { NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/store';
 import { changeCity } from '../../store/app/app';
 import { memo } from 'react';
+import { Cities } from '../../const';
 
 type CitiesListProps = {
-  cities: string[];
   activeCity: string;
 }
 
-function CitiesList({cities, activeCity}: CitiesListProps): JSX.Element {
+function CitiesList({activeCity}: CitiesListProps): JSX.Element {
+  const cities = Cities;
   const dispatch = useAppDispatch();
   return (
     <section className="locations container">
