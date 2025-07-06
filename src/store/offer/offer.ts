@@ -10,7 +10,7 @@ type PageOfferData = {
   commentData: Review[];
 }
 
-const initialState: PageOfferData = {
+export const initialState: PageOfferData = {
   offerData: null,
   status: RequestStatus.Idle,
   nearbyData: [],
@@ -56,4 +56,5 @@ const offerSlice = createSlice({
 });
 
 export const {setOfferData, setNearbyData, setCommentData, setStatus, clearOfferData, addComment} = offerSlice.actions;
+export {initialState as initialOfferState};
 export default offerSlice.reducer;

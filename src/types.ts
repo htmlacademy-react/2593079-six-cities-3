@@ -76,7 +76,7 @@ type User = {
 
 export type Review = {
   id: string;
-  date: string; // или Date, если будет преобразовываться
+  date: string;
   user: User;
   comment: string;
   rating: number;

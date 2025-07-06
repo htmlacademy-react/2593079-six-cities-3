@@ -4,6 +4,6 @@ import { RoutePath } from '../../const';
 
 export default function NotFoundPage() {
   return (
-    <Link to={RoutePath.Main} className="error-link" style={{margin: '100px auto', display: 'block'}}>404</Link>
+    <Link to={RoutePath.Main} className="error-link" style={{margin: '100px auto', display: 'block', fontSize: '40px'}}>404</Link>
   );
 }

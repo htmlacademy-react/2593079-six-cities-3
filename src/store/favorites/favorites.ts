@@ -9,7 +9,7 @@ type FavoritesState = {
   status: RequestStatus;
 };
 
-const initialState: FavoritesState = {
+export const initialState: FavoritesState = {
   favorites: [],
   status: RequestStatus.Idle
 };

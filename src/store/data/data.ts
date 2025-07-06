@@ -5,12 +5,12 @@ import { fetchOffersAction } from '../api-action';
 import { addFavorite, deleteFavorite } from '../favorites/favorites';
 
 
-type DataState = {
+export type DataState = {
   offers: Offer[];
   status: RequestStatus;
 }
 
-const initialState: DataState = {
+export const initialState: DataState = {
   offers: [],
   status: RequestStatus.Pending
 };

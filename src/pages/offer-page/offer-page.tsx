@@ -124,7 +124,7 @@ export default function OfferPage(): JSX.Element {
 
           </div>
         </div>
-        <div className="offer__container container">
+        <div className="offer__container container" data-testid="offer-container">
           <div className="offer__wrapper">
             {offer.isPremium &&
             <div className="offer__mark">

@@ -5,7 +5,7 @@ type AppState = {
   activeCity: string;
 }
 
-const initialState: AppState = {
+export const initialState: AppState = {
   activeCity: 'Paris',
 };
 
