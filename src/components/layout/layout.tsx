@@ -9,7 +9,6 @@ import { fetchFavorites } from '../../store/api-action';
 import { resetFavorites } from '../../store/favorites/favorites';
 import { usePageClass } from '../../hooks/use-page-class';
 
-
 export default function Layout(): JSX.Element {
   const isAuthorized = useAppSelector(getAuthStatus) === AuthorizationStatus.Auth;
   const email = useAppSelector(getUserEmail);
@@ -67,7 +66,6 @@ export default function Layout(): JSX.Element {
                       </span>
                       <span className="header__favorite-count">{favorites.length}</span>
                     </Link> : <Link to={RoutePath.Login} className="header__nav-link header__nav-link--profile"><span className="header__login">Sign in</span></Link>}
-
 
                 </li>
                 {isAuthorized &&
