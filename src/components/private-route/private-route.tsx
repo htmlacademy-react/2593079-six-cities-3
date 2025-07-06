@@ -15,8 +15,9 @@ type FromState = {
 
 export default function PrivateRoute({children, onlyUnAuth}: PrivateRouteProps): JSX.Element {
 
-  const location = useLocation() as Location<FromState> ;
+  const location = useLocation() as Location<FromState>;
   const authStatus = useAppSelector(getAuthStatus);
+
 
   if (authStatus === AuthorizationStatus.Unknown) {
     return <Spinner/>;
