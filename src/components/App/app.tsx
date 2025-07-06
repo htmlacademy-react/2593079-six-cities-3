@@ -5,7 +5,6 @@ type AppProps = {
   offers: Offer[];
 }
 
-
 export default function App({ offers}: AppProps): JSX.Element {
   return (
     <MainPage offers={offers}/>
