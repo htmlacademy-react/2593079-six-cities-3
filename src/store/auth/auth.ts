@@ -13,7 +13,7 @@ type AuthState = {
   email: string;
 }
 
-const initialState: AuthState = {
+export const initialState: AuthState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   name: '',
   avatarUrl: '',

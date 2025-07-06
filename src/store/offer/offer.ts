@@ -56,4 +56,5 @@ const offerSlice = createSlice({
 });
 
 export const {setOfferData, setNearbyData, setCommentData, setStatus, clearOfferData, addComment} = offerSlice.actions;
+export {initialState as initialOfferState};
 export default offerSlice.reducer;
