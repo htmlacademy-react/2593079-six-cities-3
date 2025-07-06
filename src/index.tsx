@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import App from './components/App/app';
+import App from './components/app/app';
 import Layout from './components/layout/layout';
 import OfferPage from './pages/offer-page/offer-page';
 import LoginPage from './pages/login-page/login-page';
