@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import { useAppDispatch } from '../../hooks/store';
 import { addFavoriteRequest, deleteFavoriteRequest } from '../../store/api-action';
 import FavoriteButton from '../favorite-button/favorite-button';
-import { setBtn, toCapitalize } from '../../utils';
+import { setBtnState, toCapitalize } from '../../utils';
 import { RATING_COEFF } from '../../const';
 
 type PlaceCardProps = {
@@ -16,7 +16,7 @@ type PlaceCardProps = {
 export default function PlaceCard({offer, isForFavPage, onChange}: PlaceCardProps): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const btnRef = useRef<HTMLButtonElement>(null);
+  const favoriteBtnRef = useRef<HTMLButtonElement>(null);
   const [isFavorite, setFavorite] = useState<boolean>(offer.isFavorite);
 
   const handleCardHover = () => {
@@ -32,18 +32,18 @@ export default function PlaceCard({offer, isForFavPage, onChange}: PlaceCardProp
   };
 
   const handleFavoriteClick = () => {
-    setBtn(btnRef, 'off');
+    setBtnState(favoriteBtnRef, 'off');
 
     if(isFavorite) {
       dispatch(deleteFavoriteRequest(offer))
         .unwrap()
         .then(() => setFavorite(false))
-        .finally(() => setBtn(btnRef, 'on'));
+        .finally(() => setBtnState(favoriteBtnRef, 'on'));
     } else {
       dispatch(addFavoriteRequest(offer))
         .unwrap()
         .then(() => setFavorite(true))
-        .finally(() => setBtn(btnRef, 'on'));
+        .finally(() => setBtnState(favoriteBtnRef, 'on'));
     }
   };
 
@@ -69,7 +69,7 @@ export default function PlaceCard({offer, isForFavPage, onChange}: PlaceCardProp
             <b className="place-card__price-value">&euro;{offer.price} </b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <FavoriteButton handleClick={handleFavoriteClick} isFavorite={isFavorite} isBigButton={false} btnRef={btnRef}/>
+          <FavoriteButton handleClick={handleFavoriteClick} isFavorite={isFavorite} isBigButton={false} favoriteBtnRef={favoriteBtnRef}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

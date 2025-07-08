@@ -12,7 +12,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { clearOfferData, setStatus } from '../../store/offer/offer';
 import Spinner from '../../components/spinner/spinner';
 import NotFoundPage from '../not-found-page/not-found-page';
-import { setBtn, toCapitalize } from '../../utils';
+import { setBtnState, toCapitalize } from '../../utils';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
 
 export default function OfferPage(): JSX.Element {
@@ -27,7 +27,7 @@ export default function OfferPage(): JSX.Element {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const { setPageClass } = useOutletContext<{ setPageClass: (cls: string) => void }>();
 
-  const btnRef = useRef<HTMLButtonElement>(null);
+  const favoriteBtnRef = useRef<HTMLButtonElement>(null);
 
   const limitedNearbyPlacesData = useMemo(
     () => nearbyPlaces.slice(0, MAX_NEARBY_PLACES_COUNT),
@@ -78,18 +78,18 @@ export default function OfferPage(): JSX.Element {
 
   const handleFavoriteClick = () => {
     if(offer) {
-      setBtn(btnRef, 'off');
+      setBtnState(favoriteBtnRef, 'off');
 
       if(isFavorite) {
         dispatch(deleteFavoriteRequest(offer))
           .unwrap()
           .then(() => setIsFavorite(false))
-          .finally(() => setBtn(btnRef, 'on'));
+          .finally(() => setBtnState(favoriteBtnRef, 'on'));
       } else {
         dispatch(addFavoriteRequest(offer))
           .unwrap()
           .then(() => setIsFavorite(true))
-          .finally(() => setBtn(btnRef, 'on'));
+          .finally(() => setBtnState(favoriteBtnRef, 'on'));
       }
     }
 
@@ -135,7 +135,7 @@ export default function OfferPage(): JSX.Element {
               <h1 className="offer__name">
                 {offer.title}
               </h1>
-              <FavoriteButton isFavorite={isFavorite} handleClick={handleFavoriteClick} isBigButton btnRef={btnRef}/>
+              <FavoriteButton isFavorite={isFavorite} handleClick={handleFavoriteClick} isBigButton favoriteBtnRef={favoriteBtnRef}/>
             </div>
             <div className="offer__rating rating">
               <div className="offer__stars rating__stars">

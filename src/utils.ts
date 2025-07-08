@@ -2,6 +2,8 @@ import dayjs from 'dayjs';
 import { Offer, Review } from './types';
 import { RefObject } from 'react';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import 'toastify-js/src/toastify.css';
+import Toastify from 'toastify-js';
 
 dayjs.extend(isSameOrAfter);
 
@@ -17,7 +19,7 @@ const toCapitalize = (text: string) => `${text[0].toUpperCase()}${text.slice(1)}
 
 const getRandomElement = <T>(array: T[]): T | undefined =>array[Math.floor(array.length * Math.random())];
 
-const setBtn = (btnRef: RefObject<HTMLButtonElement> | null, type: 'on' | 'off') => {
+const setBtnState = (btnRef: RefObject<HTMLButtonElement> | null, type: 'on' | 'off') => {
   if(btnRef) {
     if(type === 'off') {
       btnRef.current?.setAttribute('disabled', 'true');
@@ -27,6 +29,17 @@ const setBtn = (btnRef: RefObject<HTMLButtonElement> | null, type: 'on' | 'off')
   }
 };
 
-const compareComments = (a: Review, b: Review) => dayjs(b.date).isSameOrAfter(dayjs(a.date)) ? 1 : -1;
+const showMessage = (text: string): void => {
+  Toastify({
+    text,
+    className: 'info',
+    position: 'left',
+    style: {
+      background: 'linear-gradient(to right,rgb(238, 109, 77),rgb(216, 29, 26))',
+    }
+  }).showToast();
+};
 
-export {filterByCity, parseReviewDate, parseDateTime, checkLoginInput, checkPasswordInput, toCapitalize, getRandomElement, setBtn, compareComments};
+const compareComments = (firstReview: Review, secondReview: Review) => dayjs(secondReview.date).isSameOrAfter(dayjs(firstReview.date)) ? 1 : -1;
+
+export {filterByCity, parseReviewDate, parseDateTime, checkLoginInput, checkPasswordInput, toCapitalize, getRandomElement, setBtnState, compareComments, showMessage};

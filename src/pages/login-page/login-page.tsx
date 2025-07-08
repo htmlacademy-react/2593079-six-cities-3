@@ -2,7 +2,7 @@ import { useRef, FormEvent, useEffect } from 'react';
 import { checkLoginInput, checkPasswordInput } from '../../utils';
 import { useAppDispatch } from '../../hooks/store';
 import { loginAction } from '../../store/api-action';
-import RandomCityLink from '../../components/random-link/random-city-link';
+import RandomCityLink from '../../components/random-city-link/random-city-link';
 import { Link } from 'react-router-dom';
 import { RoutePath } from '../../const';
 
@@ -38,9 +38,9 @@ export default function LoginPage(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="/">
+              <Link className="header__logo-link" to={RoutePath.Main}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              </Link>
             </div>
             <div className="header__nav-item user">
               <Link to={RoutePath.Login} className="header__nav-link header__nav-link--profile"><span className="header__login" style={{zIndex: 10000, opacity: 0}}>Sign in</span></Link>

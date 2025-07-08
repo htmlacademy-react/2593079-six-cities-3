@@ -1,13 +1,14 @@
-import { useEffect } from 'react';
+import { MouseEventHandler, useEffect } from 'react';
 import {MemoizedOffersList} from '../../components/offers-list/offers-list';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { } from '../../store/data/selectors';
 import { getFavorites, getFavoritesStatus } from '../../store/favorites/selectors';
 import { fetchFavorites } from '../../store/api-action';
-import { AuthorizationStatus, RequestStatus } from '../../const';
+import { AuthorizationStatus, RequestStatus, RoutePath } from '../../const';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty';
-import { useOutletContext } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import { getAuthStatus } from '../../store/auth/selectors';
+import { changeCity } from '../../store/app/app';
 
 
 export default function FavoritesPage(): JSX.Element {
@@ -19,6 +20,7 @@ export default function FavoritesPage(): JSX.Element {
     }
     return uniqueCities;
   } , []);
+
 
   const dispatch = useAppDispatch();
   const favoritesStatus = useAppSelector(getFavoritesStatus);
@@ -48,13 +50,14 @@ export default function FavoritesPage(): JSX.Element {
             {uniquePlaces.map((city, id) => {
               const filteredOffers = favoritedOffers.filter((offer) => offer.city.name === city);
               const key = `${id}-city`;
+              const onCityLinkClick: MouseEventHandler = () => dispatch(changeCity(city));
               return (
                 <li key={key} className="favorites__locations-items">
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
-                      <a className="locations__item-link" href="#">
+                      <Link className="locations__item-link" to={RoutePath.Main} onClick={onCityLinkClick}>
                         <span>{city}</span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   <MemoizedOffersList offers={filteredOffers} isForFavPage/>

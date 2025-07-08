@@ -7,6 +7,7 @@ import LoginPage from '../../pages/login-page/login-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import OfferPage from '../../pages/offer-page/offer-page';
+import Footer from '../footer/footer';
 
 export default function App(): JSX.Element {
   return (
@@ -17,7 +18,10 @@ export default function App(): JSX.Element {
         <Route path={RoutePath.Offer} element={<OfferPage/>}/>
         <Route path={RoutePath.Favorites} element={
           <PrivateRoute>
-            <FavoritesPage/>
+            <>
+              <FavoritesPage/>
+              <Footer/>
+            </>
           </PrivateRoute>
         }
         >
