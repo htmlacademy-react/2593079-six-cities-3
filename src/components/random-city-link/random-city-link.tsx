@@ -1,6 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getRandomElement } from '../../utils';
-import { Cities } from '../../const';
+import { Cities, RoutePath } from '../../const';
 import { MouseEventHandler } from 'react';
 import { useAppDispatch } from '../../hooks/store';
 import { changeCity } from '../../store/app/app';
@@ -22,9 +22,9 @@ export default function RandomCityLink(): JSX.Element {
 
   return (
     <div className="locations__item">
-      <a className="locations__item-link" href="/" onClick={onRandomLinkClick}>
+      <Link className="locations__item-link" to={RoutePath.Main} onClick={onRandomLinkClick}>
         <span>{currentCity}</span>
-      </a>
+      </Link>
     </div>
   );
 }

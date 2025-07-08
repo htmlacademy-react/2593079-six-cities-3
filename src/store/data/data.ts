@@ -27,11 +27,7 @@ const dataSlice = createSlice({
     }
   },
   extraReducers(builder) {
-    builder.addCase(fetchOffersAction.fulfilled, (state) => {
-      state.status = RequestStatus.Loaded;
-    }).addCase(fetchOffersAction.rejected, (state) => {
-      state.status = RequestStatus.Failed;
-    }).addCase(fetchOffersAction.pending, (state) => {
+    builder.addCase(fetchOffersAction.pending, (state) => {
       state.status = RequestStatus.Pending;
     }).addCase(addFavorite, (state, action: PayloadAction<Offer>) => {
       const index = state.offers.findIndex((offer) => offer.id === action.payload.id);

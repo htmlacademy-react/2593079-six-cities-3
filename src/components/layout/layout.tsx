@@ -37,7 +37,7 @@ export default function Layout(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="/">
+              <Link className="header__logo-link" to={RoutePath.Main}>
                 <img
                   className="header__logo"
                   src="img/logo.svg"
@@ -45,7 +45,7 @@ export default function Layout(): JSX.Element {
                   width={81}
                   height={41}
                 />
-              </a>
+              </Link>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">

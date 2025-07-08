@@ -8,7 +8,7 @@ type FavoriteButtonProps = {
   isFavorite: boolean | undefined;
   handleClick: () => void;
   isBigButton?: boolean;
-  btnRef: RefObject<HTMLButtonElement>;
+  favoriteBtnRef: RefObject<HTMLButtonElement>;
 }
 
 const getButtonClass = (isFavorite: boolean | undefined, isBigButton: boolean | undefined) => {
@@ -25,7 +25,7 @@ const getButtonClass = (isFavorite: boolean | undefined, isBigButton: boolean | 
 
 const getSizes = (isBigButton: boolean) => isBigButton ? favoriteButtonSizes.big : favoriteButtonSizes.small;
 
-export default function FavoriteButton({isFavorite, handleClick, isBigButton, btnRef}: FavoriteButtonProps) {
+export default function FavoriteButton({isFavorite, handleClick, isBigButton, favoriteBtnRef}: FavoriteButtonProps) {
   const authStatus = useAppSelector(getAuthStatus);
   const navigate = useNavigate();
   const sizes = getSizes(Boolean(isBigButton));
@@ -40,7 +40,7 @@ export default function FavoriteButton({isFavorite, handleClick, isBigButton, bt
   };
 
   return (
-    <button className={getButtonClass(isFavorite, isBigButton)} type="button" ref={btnRef} onClick={onFavoriteClick}>
+    <button className={getButtonClass(isFavorite, isBigButton)} type="button" ref={favoriteBtnRef} onClick={onFavoriteClick}>
       <svg className= "place-card__bookmark-icon" width={sizes.width} height={sizes.height}>
         <use xlinkHref="#icon-bookmark"/>
       </svg>

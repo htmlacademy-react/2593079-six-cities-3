@@ -1,9 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../const';
-import { checkLogin, loginAction } from '../api-action';
+import { checkLogin } from '../api-action';
 import { userData } from '../../types';
-import { dropToken } from '../../services/token';
-
 
 type AuthState = {
   authorizationStatus: AuthorizationStatus;
@@ -39,18 +37,12 @@ const AuthSlice = createSlice({
       [state.name, state.isPro, state.avatarUrl, state.email, state.authorizationStatus] =
       ['', false, '', '', AuthorizationStatus.NoAuth];
 
-
-      dropToken();
     }
   },
   extraReducers: (builder) => {
     builder.addCase(checkLogin.fulfilled, (state) => {
       state.authorizationStatus = AuthorizationStatus.Auth;
     }).addCase(checkLogin.rejected, (state) => {
-      state.authorizationStatus = AuthorizationStatus.NoAuth;
-    }).addCase(loginAction.fulfilled, (state) => {
-      state.authorizationStatus = AuthorizationStatus.Auth;
-    }).addCase(loginAction.rejected, (state) => {
       state.authorizationStatus = AuthorizationStatus.NoAuth;
     });
   }

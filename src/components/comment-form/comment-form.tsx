@@ -1,8 +1,8 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState, MouseEvent } from 'react';
 import { useAppDispatch } from '../../hooks/store';
 import { postComment } from '../../store/api-action';
-import { DEFAULT_RATING } from '../../const';
-import { setBtn } from '../../utils';
+import { COMMENT_LIMIT, DEFAULT_RATING, ErrorText } from '../../const';
+import { setBtnState, showMessage } from '../../utils';
 
 type CommentFormProps = {
   id: string;
@@ -10,9 +10,9 @@ type CommentFormProps = {
 
 function disableForm(form: HTMLFormElement) {
   if (form.elements) {
-    Array.from(form.elements).forEach((el) => {
-      if ('disabled' in el) {
-        el.disabled = true;
+    Array.from(form.elements).forEach((formElement) => {
+      if ('disabled' in formElement) {
+        formElement.disabled = true;
       }
     });
   }
@@ -49,10 +49,10 @@ export default function CommentForm({id}: CommentFormProps): JSX.Element {
     const text = commentState.comment;
     const rating = commentState.rating;
 
-    if(text.trim().length > 49 && text.trim().length < 301 && rating) {
-      setBtn(submitBtnRef, 'on');
+    if((text.trim().length >= COMMENT_LIMIT.MIN) && (text.trim().length <= COMMENT_LIMIT.MAX) && rating) {
+      setBtnState(submitBtnRef, 'on');
     } else {
-      setBtn(submitBtnRef, 'off');
+      setBtnState(submitBtnRef, 'off');
     }
 
   }, [commentState]);
@@ -78,10 +78,11 @@ export default function CommentForm({id}: CommentFormProps): JSX.Element {
         });
         enableForm(commentFormRef.current as HTMLFormElement);
         commentFormRef.current?.reset();
-        setBtn(submitBtnRef, 'off');
+        setBtnState(submitBtnRef, 'off');
       })
       .catch(() => {
         enableForm(commentFormRef.current as HTMLFormElement);
+        showMessage(ErrorText.COMMENT_ERROR);
       });
 
   };
