@@ -14,21 +14,21 @@ type PlaceCardProps = {
 export default function NearOfferCard({offer}: PlaceCardProps): JSX.Element {
   const dispatch = useAppDispatch();
   const [isFavorite, setIsFavorite] = useState<boolean>(offer.isFavorite);
-  const btnRef = useRef<HTMLButtonElement>(null);
+  const favoriteBtnRef = useRef<HTMLButtonElement>(null);
 
   const handleFavoriteClick = () => {
-    setBtnState(btnRef, 'off');
+    setBtnState(favoriteBtnRef, 'off');
 
     if(isFavorite) {
       dispatch(deleteFavoriteRequest(offer))
         .unwrap()
         .then(() => setIsFavorite(false))
-        .finally(() => setBtnState(btnRef, 'on'));
+        .finally(() => setBtnState(favoriteBtnRef, 'on'));
     } else {
       dispatch(addFavoriteRequest(offer))
         .unwrap()
         .then(() => setIsFavorite(true))
-        .finally(() => setBtnState(btnRef, 'on'));
+        .finally(() => setBtnState(favoriteBtnRef, 'on'));
     }
   };
   return (
@@ -51,7 +51,7 @@ export default function NearOfferCard({offer}: PlaceCardProps): JSX.Element {
             <b className="place-card__price-value">€{offer.price}</b>
             <span className="place-card__price-text">/&nbsp;night</span>
           </div>
-          <FavoriteButton isFavorite={isFavorite} handleClick={handleFavoriteClick} favoriteBtnRef={btnRef}/>
+          <FavoriteButton isFavorite={isFavorite} handleClick={handleFavoriteClick} favoriteBtnRef={favoriteBtnRef}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
