@@ -2,10 +2,9 @@ import { Link, Outlet } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/store';
 import { AuthorizationStatus, RequestStatus, RoutePath } from '../../const';
 import { getAuthStatus, getUserAvatar, getUserEmail } from '../../store/auth/selectors';
-import { deleteAuthData } from '../../store/auth/auth';
 import { MouseEventHandler, useEffect } from 'react';
 import { getFavorites, getFavoritesStatus } from '../../store/favorites/selectors';
-import { fetchFavorites } from '../../store/api-action';
+import { fetchFavorites, logoutAction } from '../../store/api-action';
 import { resetFavorites } from '../../store/favorites/favorites';
 import { usePageClass } from '../../hooks/use-page-class';
 
@@ -26,8 +25,9 @@ export default function Layout(): JSX.Element {
   }, [favoritesStatus, dispatch, isAuthorized]);
 
 
-  const onSignOutClick: MouseEventHandler<HTMLAnchorElement> = () => {
-    dispatch(deleteAuthData());
+  const onSignOutClick: MouseEventHandler<HTMLAnchorElement> = (e) => {
+    e.preventDefault();
+    dispatch(logoutAction());
     dispatch(resetFavorites());
   };
 
