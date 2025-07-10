@@ -7,7 +7,7 @@ import { LoginData, Offer, OfferData, PostCommentData, Review, userData } from '
 import { dropToken, saveToken } from '../services/token';
 import { setOffers, setOffersStatus } from './data/data';
 import { addComment, setCommentData, setNearbyData, setOfferData } from './offer/offer';
-import { saveAuthData, setAuthStatus } from './auth/auth';
+import { deleteAuthData, saveAuthData, setAuthStatus } from './auth/auth';
 import { addFavorite, deleteFavorite, setFavorites } from './favorites/favorites';
 import { showMessage } from '../utils';
 
@@ -31,6 +31,16 @@ export const checkLogin = createAsyncThunk<void, undefined, {
 }>('checkLoginAction', async (_, {extra: api, dispatch}) => {
   const {data} = await api.get<userData>(RouteAPI.LOGIN);
   dispatch(saveAuthData(data));
+});
+
+export const logoutAction = createAsyncThunk<void, undefined, {
+  extra: AxiosInstance;
+  dispatch: AppDispatch;
+}>('logoutAction', async (_, {extra: api, dispatch}) => {
+  await api.delete(RouteAPI.LOGOUT);
+  dispatch(deleteAuthData());
+  dropToken();
+  dispatch(redirectTo(RoutePath.Login));
 });
 
 export const loginAction = createAsyncThunk<void, LoginData, {
@@ -60,7 +70,6 @@ export const fetchOffer = createAsyncThunk<void, string, {
     dispatch(setOfferData(data));
   } catch {
     showMessage(ErrorText.OFFER_ERROR);
-
   }
 });
 
@@ -96,7 +105,6 @@ export const deleteFavoriteRequest = createAsyncThunk<void, Offer | OfferData, {
   try {
     const {data} = await api.post<Offer>(`${RouteAPI.GET_FAVORITES}/${offer.id}/0`);
     dispatch(deleteFavorite(data));
-    dropToken();
   } catch {
     showMessage(ErrorText.DELETE_FAVORITE_ERROR);
   }
